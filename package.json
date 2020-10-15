@@ -1,0 +1,36 @@
+{
+  "name": "mybackups",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon src/index.js",
+    "start": "npm run start:dev",
+    "test": "mocha --recursive --timeout 120000",
+    "coverage:html": "nyc --reporter=lcov --reporter=text-summary npm test",
+    "coverage": "nyc npm test",
+    "deploy" : "npx sequelize-cli db:migrate"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "log4js": "^6.1.0",
+    "mocha": "^7.0.0",
+    "nyc": "^15.0.0",
+    "pg": "^7.17.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.3",
+    "sequelize-cli": "^5.5.1",
+    "uuid": "^3.3.3"
+  }
+}
