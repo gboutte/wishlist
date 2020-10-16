@@ -12,6 +12,7 @@ Definir les variables d'environnement
 |--------------|:---------------------------------------------:|
 | DATABASE_URL |    L'url de connexion a la base de données    |
 | TOKEN_SECRET | La clé utilisé pour la création des token JWT |
+| API_DOMAIN | L'url a utiliser pour les appels api (ex: http://localhost:3000) |
 
 
 Lancer les migrations
