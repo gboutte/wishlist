@@ -2,11 +2,10 @@
     background: white;
     border-radius:10px;
 
-    transition: all 0.1s ease-out;
     padding: 12px;
 }
 .wishContainer{
-  padding: 5px 0;
+  padding: 8px 0;
   width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -18,7 +17,7 @@
 }
 
 .wishContainer:hover{
-    padding: 0 0 10px 0;
+    padding: 3px 0 13px 0;
 }
 .wishContainer:hover .wish{
 box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.75);

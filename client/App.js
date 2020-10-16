@@ -25,7 +25,6 @@ class App extends React.Component {
 
   }
   render() {
-    console.log("ddd");
 
     var style={
       height:"100%"

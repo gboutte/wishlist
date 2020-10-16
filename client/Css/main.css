@@ -1,6 +1,8 @@
 *{
   font-family: 'Palanquin', sans-serif !important;
   box-sizing: border-box !important;
+
+  transition: all 0.1s ease-out;
 }
 h1{
   font-size: 60px !important;
@@ -14,4 +16,10 @@ html,body{
   height: 100%;
   margin:0;
   padding: 0;
+}
+.my-container{
+  height: 100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import 'antd/dist/antd.css';
+import './style.css';
 import {Redirect} from "react-router-dom";
 import AdminList from '../AdminList';
 import { Table, Tag, Space } from 'antd';
@@ -20,19 +21,24 @@ class Admin extends React.Component {
 
   }
   onFinish(values) {
-    var self = this;
-       axios.post(process.env.API_DOMAIN+'/api/install/user',{
+      var self = this;
+       axios.post(process.env.API_DOMAIN+'/api/user/login',{
          username:values.username,
          password:values.password
        })
        .then(function (response) {
-          self.setState({
-            redirect:true
-          })
+
+          if(typeof response.data.data.token != "undefined"){
+            self.setState({
+              token:response.data.data.token,
+              connected:true
+            });
+          }
 
        })
        .catch(function (error) {
 
+                  console.log(error);
        })
        .then(function () {
        });
@@ -51,12 +57,13 @@ class Admin extends React.Component {
     },
     };
     const tailLayout = {
-    wrapperCol: {
-    offset: 8,
-    span: 16,
-    },
+      wrapperCol: {
+        offset: 8,
+        span: 16,
+      },
     };
-    return <div>
+
+    return (<div className="my-container">
       <Form
             name="normal_login"
             className="login-form"
@@ -71,8 +78,7 @@ class Admin extends React.Component {
             <Form.Item
               name="password"
               rules={[
-                { required: true, message: 'Please input your Password!' },
-              { min: 8, message: 'Password must be atleast 8 chars !' },
+                { required: true, message: 'Please input your Password!' }
             ]}
             >
               <Input.Password
@@ -84,11 +90,11 @@ class Admin extends React.Component {
 
             <Form.Item>
               <Button type="primary" htmlType="submit" className="login-form-button">
-                Install
+                Login
               </Button>
             </Form.Item>
           </Form>
-    </div>;
+    </div>);
 
   }
   render() {
@@ -100,7 +106,7 @@ class Admin extends React.Component {
     }
     return <div>
       <h1>Admin</h1>
-
+      {page}
     </div>
     ;
   }

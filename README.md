@@ -1,7 +1,7 @@
 # Wishlist
 
 ## Installation
-Installer les dépendance
+Installer les dépendances
 ```sh
 npm install
 ```
