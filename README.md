@@ -1,7 +1,7 @@
 # Wishlist
 
 ## Installation
-- Executer ces commandes
+Installer les dépendance
 ```sh
 npm install
 ```
@@ -15,7 +15,7 @@ Definir les variables d'environnement
 | API_DOMAIN | L'url a utiliser pour les appels api (ex: http://localhost:3000) |
 
 
-Lancer les migrations
+Lancer les migrations et le 1er build
 
 ```sh
 npm run deploy
