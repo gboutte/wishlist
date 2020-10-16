@@ -1,0 +1,71 @@
+.wish{
+    background: white;
+    border-radius:10px;
+
+    transition: all 0.1s ease-out;
+    padding: 12px;
+}
+.wishContainer{
+  padding: 5px 0;
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.2s ease-out;
+}
+.wish h2{
+  margin:0;
+  padding: 0;
+}
+
+.wishContainer:hover{
+    padding: 0 0 10px 0;
+}
+.wishContainer:hover .wish{
+box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.75);
+}
+.wish a{
+  color:black;
+  text-decoration: none;
+  font-weight: bold;
+  float: right;
+}
+.wish .price{
+  font-weight: bold;
+
+}
+.wish p{
+  margin:0;
+}
+.wish .picture{
+  width: 100px;
+  height: 100px;
+  background:rgb(255,193,194);
+  border-radius:10px;
+  display: inline-block;
+}
+.wish .content{
+  display: inline-block;
+  width: calc(100% - 100px);
+  vertical-align: top;
+  padding:0 10px;
+  margin-top:-10px;
+}
+.wish a img{
+  height: 35px;
+  vertical-align: bottom;
+}
+
+@media screen and (max-width: 1000px) {
+
+  .wishContainer{
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wish a{
+    float: none;
+    display: block;
+
+  }
+}

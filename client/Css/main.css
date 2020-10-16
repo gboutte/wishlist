@@ -1,0 +1,17 @@
+*{
+  font-family: 'Palanquin', sans-serif !important;
+  box-sizing: border-box !important;
+}
+h1{
+  font-size: 60px !important;
+  color:white !important;
+  text-align: center !important;
+}
+html,body{
+  background: rgb(57,57,57) !important;
+}
+#root,body,html{
+  height: 100%;
+  margin:0;
+  padding: 0;
+}
