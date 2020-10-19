@@ -31,11 +31,9 @@ class AdminLogin extends React.Component {
        .then(function (response) {
 
           if(typeof response.data.data.token != "undefined"){
-            self.setState({
-              token:response.data.data.token,
-              connected:true
-            });
-            self.callback(response.data.data.token);
+
+            localStorage.setItem('token', response.data.data.token);
+            self.callback();
           }
 
        })

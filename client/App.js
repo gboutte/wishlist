@@ -9,6 +9,17 @@ import {
   Route
 } from "react-router-dom";
 
+axios.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    config.headers.authorization = `Bearer ${token}`;
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
 class App extends React.Component {
 
   constructor(props) {

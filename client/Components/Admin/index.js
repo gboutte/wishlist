@@ -17,14 +17,20 @@ class Admin extends React.Component {
 
         this.onConnect = this.onConnect.bind(this);
     this.state = {
-            token:null,
             connected:false
         };
 
   }
-  onConnect(token){
+  componentDidMount() {
+    if(localStorage.getItem('token')){
+      this.setState({
+        connected:true
+      })
+    }
+
+  }
+  onConnect(){
     this.setState({
-      token:token,
       connected:true
     })
   }
@@ -32,7 +38,7 @@ class Admin extends React.Component {
   render() {
     var page;
     if(this.state.connected){
-      page = <AdminList token={this.state.token}/>;
+      page = <AdminList />;
     }else{
       page = <AdminLogin callback={this.onConnect} />;
     }

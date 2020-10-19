@@ -9,7 +9,6 @@ class AdminList extends React.Component {
 
   constructor(props) {
     super(props);
-    this.token = props.token;
     this.columns = [
       {
         title: 'Title',
@@ -76,7 +75,7 @@ class AdminList extends React.Component {
     loadWish(){
       var self = this;
 
-      axios.get(process.env.API_DOMAIN+'/api/wish',this.headers)
+      axios.get(process.env.API_DOMAIN+'/api/wish')
       .then(function (response) {
         // handle success
         self.setState({
@@ -112,7 +111,7 @@ class AdminList extends React.Component {
   modalAdd(){
     return   <Modal
       footer={null}
-        title="Basic Modal"
+        title="Add a wish"
         visible={this.state.modalAdd}
         onOk={this.handleOkAdd}
         onCancel={this.handleCancelAdd}
@@ -122,7 +121,6 @@ class AdminList extends React.Component {
   }
   onFinishAdd(values) {
       var self = this;
-      console.log(values.disabled);
        axios.post(process.env.API_DOMAIN+'/api/wish',{
          title:values.title,
          description:values.description,
