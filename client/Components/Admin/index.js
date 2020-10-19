@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import './style.css';
 import {Redirect} from "react-router-dom";
 import AdminList from '../AdminList';
+import AdminLogin from '../AdminLogin';
 import { Table, Tag, Space } from 'antd';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -14,95 +15,26 @@ class Admin extends React.Component {
     super(props);
 
 
+        this.onConnect = this.onConnect.bind(this);
     this.state = {
             token:null,
             connected:false
         };
 
   }
-  onFinish(values) {
-      var self = this;
-       axios.post(process.env.API_DOMAIN+'/api/user/login',{
-         username:values.username,
-         password:values.password
-       })
-       .then(function (response) {
-
-          if(typeof response.data.data.token != "undefined"){
-            self.setState({
-              token:response.data.data.token,
-              connected:true
-            });
-          }
-
-       })
-       .catch(function (error) {
-
-                  console.log(error);
-       })
-       .then(function () {
-       });
-  };
-
-  onFinishFailed(errorInfo){
-    console.log('Failed:', errorInfo);
-  };
-  loginForm(){
-    const layout = {
-    labelCol: {
-    span: 8,
-    },
-    wrapperCol: {
-    span: 16,
-    },
-    };
-    const tailLayout = {
-      wrapperCol: {
-        offset: 8,
-        span: 16,
-      },
-    };
-
-    return (<div className="my-container">
-      <Form
-            name="normal_login"
-            className="login-form"
-            onFinish={this.onFinish}
-          >
-            <Form.Item
-              name="username"
-              rules={[{ required: true, message: 'Please input your Username!' }]}
-            >
-              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                { required: true, message: 'Please input your Password!' }
-            ]}
-            >
-              <Input.Password
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Item>
-
-            <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-form-button">
-                Login
-              </Button>
-            </Form.Item>
-          </Form>
-    </div>);
-
+  onConnect(token){
+    this.setState({
+      token:token,
+      connected:true
+    })
   }
+
   render() {
     var page;
     if(this.state.connected){
-      page = <AdminList/>;
+      page = <AdminList token={this.state.token}/>;
     }else{
-      page = this.loginForm();
+      page = <AdminLogin callback={this.onConnect} />;
     }
     return <div>
       <h1>Admin</h1>

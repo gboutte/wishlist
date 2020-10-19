@@ -9,6 +9,7 @@ async function create(req,res){
       link:req.body.link,
       description:req.body.description,
       price:req.body.price,
+      disabled:req.body.disabled,
     }).then((wish)=>{
       Response.successData(res,wish);
     }).catch((error)=>{

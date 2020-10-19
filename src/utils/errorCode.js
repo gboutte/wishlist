@@ -14,5 +14,5 @@ class ErrorCode {
       error: "ERROR_USER_USERNAME"
     };
   }
-  
+
   module.exports = ErrorCode;
