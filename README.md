@@ -48,5 +48,5 @@ TOKEN_SECRET=secret
 ```
 Puis executer la commande suivante
 ```sh
-docker-compose --env-file .env.docker up --build
+docker-compose --env-file .env.docker up --build -d
 ```
