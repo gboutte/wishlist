@@ -36,3 +36,17 @@ npm run deploy
 | npm run deploy |   Exécute les actions nécessaires  avant lancer l'application (migrations + build). |
 | npm run migrations |   Exécute les migrations. |
 | npm run build |   Compile le client react. |
+
+## Docker
+Pour lancer le docker il faut créer un fichier .env.docker avec les variables suivante:
+```
+DB_USER=user
+DB_PASSWORD=password
+DB_DATABASE=wishlist
+API_DOMAIN=http://localhost:3000
+TOKEN_SECRET=secret
+```
+Puis executer la commande suivante
+```sh
+docker-compose --env-file .env.docker up --build
+```

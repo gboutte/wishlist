@@ -1,19 +1,24 @@
 version: "3"
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_DATABASE}
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_DATABASE}"
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_DATABASE}"
       NODE_ENV: development
       PORT: 3000
+      API_DOMAIN: ${API_DOMAIN}
     ports:
       - "3000:3000"
-    command: npm run dev
     volumes:
       - .:/app/
       - /app/node_modules
+      - /home/dev/logs/:/root/.npm/_logs/
 
   postgres:
     image: postgres:10.4

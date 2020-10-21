@@ -13,6 +13,7 @@ class Installation extends React.Component {
           redirect:false
         };
 
+                this.onFinish = this.onFinish.bind(this);
   }
     onFinish(values) {
       var self = this;
@@ -44,26 +45,23 @@ class Installation extends React.Component {
       height:"100%"
     }
     const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
-const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
-};
-var redirect ;
-if(this.state.redirect){
-  redirect = <Redirect to="/admin" />
-}
+      labelCol: {
+        span: 8,
+      },
+      wrapperCol: {
+        span: 16,
+      },
+    };
+    const tailLayout = {
+      wrapperCol: {
+        offset: 8,
+        span: 16,
+      },
+    };
+
     return <div style={style}>
       <div>
-        {redirect}
+        {this.state.redirect ? <Redirect to="/admin" />:null}
         <h1>Installation</h1>
           <Form
                 name="normal_login"
