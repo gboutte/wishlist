@@ -23,7 +23,7 @@ services:
   postgres:
     image: postgres:10.4
     ports:
-      - "35432:5432"
+      - "127.0.0.1:35432:5432"
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USER}
