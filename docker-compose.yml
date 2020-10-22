@@ -19,6 +19,7 @@ services:
       - .:/app/
       - /app/node_modules
       - /home/dev/logs/:/root/.npm/_logs/
+    command: npm run start
 
   postgres:
     image: postgres:10.4
