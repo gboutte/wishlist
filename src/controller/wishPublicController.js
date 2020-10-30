@@ -6,7 +6,10 @@ const db = require('../models');
 async function list(req,res){
 
   let wishes = await db.Wish.findAll({
-    disabled:false
+     where: {
+        disabled:false
+     }
+
   });
 
     Response.successData(res,wishes);

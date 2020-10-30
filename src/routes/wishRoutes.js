@@ -3,7 +3,7 @@ const { checkSchema } = require("express-validator");
 const ErrorCode = require('../utils/errorCode');
 const validate =  require("../utils/validate");;
 
-const {create,list,update,remove} = require('../controller/wishController');
+const {create,list,update,remove,listOne} = require('../controller/wishController');
 
 router.post('/',validate(
     //@todo  add validation
@@ -26,6 +26,8 @@ router.delete('/',validate(
     })
   )
   ,remove);
+
+router.get('/:id',listOne);
 router.get('/',list);
 
 module.exports = router;

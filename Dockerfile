@@ -16,6 +16,7 @@ COPY . .
 RUN npm install
 
 RUN rm .env -f > /dev/null
+RUN rm ./client/.env -f > /dev/null
 RUN echo DATABASE_URL=$DATABASE_URL >> .env
 RUN echo API_DOMAIN=$API_DOMAIN >> ./client/.env
 

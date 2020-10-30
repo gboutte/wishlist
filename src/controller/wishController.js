@@ -21,6 +21,10 @@ async function create(req,res){
 async function list(req,res){
 
   let wishes = await db.Wish.findAll({
+    order: [
+            ['createdAt', 'DESC'],
+            ['title', 'ASC'],
+        ]
   });
 
     Response.successData(res,wishes);
@@ -64,7 +68,14 @@ async function remove(req,res){
 
     }
 }
+async function listOne(req,res){
+
+  let wishes = await db.Wish.findByPk(req.params.id);
+
+    Response.successData(res,wishes);
+}
 module.exports.create = create;
+module.exports.listOne = listOne;
 module.exports.list = list;
 module.exports.update = update;
 module.exports.remove = remove;
