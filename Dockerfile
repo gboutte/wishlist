@@ -17,10 +17,10 @@ RUN npm install
 
 RUN rm .env -f > /dev/null
 RUN rm ./client/.env -f > /dev/null
+RUN rm ./dist/ -fr > /dev/null
 RUN echo DATABASE_URL=$DATABASE_URL >> .env
 RUN echo API_DOMAIN=$API_DOMAIN >> ./client/.env
 
-CMD wait-for postgres:5432 -- ping postgres
 CMD wait-for postgres:5432 -- npm run deploy --loglevel verbose;npm start
 
 EXPOSE 3000
