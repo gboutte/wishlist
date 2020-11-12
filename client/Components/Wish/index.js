@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.css';
 import gift from '../../img/gift.svg';
+import Price from '../Price';
 
 class Wish extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Wish extends React.Component {
   }
   getPrice(){
     if(this.state.price){
-      return <span className="price">{this.state.price} €</span>
+      return <Price price={this.state.price} />
     }else{
         return null;
     }
