@@ -19,7 +19,7 @@ router.put('/',validate(
     })
   )
   ,update);
-router.delete('/',validate(
+router.delete('/:id',validate(
     //@todo  add validation
     checkSchema({
 

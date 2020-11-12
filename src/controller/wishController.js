@@ -54,12 +54,13 @@ async function update(req,res){
 
 async function remove(req,res){
 
-
     var deleted = await db.Wish.destroy({
         where:{
-          id:req.body.id
+          id:req.params.id
         }
-      });
+      }).catch((error) => {
+  console.error(error);
+});
     if(deleted){
 
       Response.success(res,{message:"Done !"});

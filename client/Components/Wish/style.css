@@ -44,6 +44,8 @@ box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.75);
   background:rgb(255,193,194);
   border-radius:10px;
   display: inline-block;
+  background-position: center;
+  background-size: cover;
 }
 .wish .content{
   display: inline-block;

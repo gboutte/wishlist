@@ -10,9 +10,12 @@ class Wish extends React.Component {
           description:props.description,
           price:props.price,
           link:props.link,
+          img:props.img
         };
   }
+  componentDidMount() {
 
+  }
   getPrice(){
     if(this.state.price){
       return <span className="price">{this.state.price} €</span>
@@ -27,12 +30,21 @@ class Wish extends React.Component {
       return null;
     }
   }
+  getPictureStyle(){
+    if(this.state.img != null){
+      return {
+        backgroundImage:'url('+this.props.img+')'
+      }
+    }else{
+      return null;
+    }
+  }
   render() {
     var price = this.getPrice();
     var link = this.getLink();
     return <div className="wishContainer">
     <div className="wish">
-      <div className="picture">
+      <div style={this.getPictureStyle()} className="picture">
       </div>
       <div className="content">
         <h2>{this.state.title}</h2>

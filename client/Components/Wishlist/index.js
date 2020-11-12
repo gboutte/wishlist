@@ -43,6 +43,7 @@ class Wishlist extends React.Component {
           description={wish.description}
           price={wish.price}
           link={wish.link}
+          img={wish.img}
            />
       })}
     </div>;

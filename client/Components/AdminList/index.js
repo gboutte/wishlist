@@ -47,7 +47,7 @@ class AdminList extends React.Component {
         render: (text, record) => (
           <Space size="middle">
             <a onClick={()=>{self.edit(record.id)}}>Edit</a>
-            <a>Delete</a>
+            <a  onClick={()=>{self.delete(record.id)}}>Delete</a>
           </Space>
         ),
       },
@@ -60,20 +60,24 @@ class AdminList extends React.Component {
            modalAdd :false,
            modalEdit :false,
            editId:null,
-           editRecord:null
+           editRecord:null,
+           deleteId:null
         };
          this.headers = {
             headers: { Authorization: 'Bearer '+this.token }
         };
     this.add = this.add.bind(this);
+    this.delete = this.delete.bind(this);
     this.modalAdd = this.modalAdd.bind(this);
     this.closeAdd = this.closeAdd.bind(this);
     this.edit = this.edit.bind(this);
     this.modalEdit = this.modalEdit.bind(this);
     this.closeEdit = this.closeEdit.bind(this);
+    this.closeDelete = this.closeDelete.bind(this);
     this.editForm = this.editForm.bind(this);
     this.onFinishAdd = this.onFinishAdd.bind(this);
     this.onFinishEdit = this.onFinishEdit.bind(this);
+    this.onFinishDelete = this.onFinishDelete.bind(this);
 
   }
   componentDidMount() {
@@ -124,9 +128,19 @@ class AdminList extends React.Component {
     });
 
   }
+  delete(id){
+      this.setState({
+        deleteId:id
+      });
+  }
   closeAdd(){
     this.setState({
       modalAdd: false
+    });
+  }
+  closeDelete(){
+    this.setState({
+      deleteId: null
     });
   }
   closeEdit(){
@@ -160,6 +174,20 @@ class AdminList extends React.Component {
       {this.addForm()}
       </Modal>;
   }
+  modalDelete(){
+
+    return   <Modal
+      footer={null}
+        title="Delete a wish"
+        visible={this.state.deleteId != null}
+        onOk={this.closeDelete}
+        onCancel={this.closeDelete}
+      >
+        Do you want to delete the wish ?
+        <br/>
+        <Button type="primary" onClick={this.onFinishDelete} danger>Yes DELETE</Button> <Button onClick={this.closeDelete} type="primary">No</Button>
+      </Modal>;
+  }
   onFinishAdd(values) {
       var self = this;
        axios.post(process.env.API_DOMAIN+'/api/wish',{
@@ -180,7 +208,20 @@ class AdminList extends React.Component {
        .then(function () {
        });
   };
+onFinishDelete() {
+  var self = this;
+   axios.delete(process.env.API_DOMAIN+'/api/wish/'+self.state.deleteId,this.headers)
+   .then(function (response) {
+      self.loadWish();
+      self.closeDelete();
+   })
+   .catch(function (error) {
 
+              console.log(error);
+   })
+   .then(function () {
+   });
+}
   onFinishFailed(errorInfo){
     console.log('Failed:', errorInfo);
   };
@@ -335,6 +376,7 @@ return form;
     return <div>
       {this.modalAdd()}
       {this.modalEdit()}
+      {this.modalDelete()}
        <Button onClick={this.add} type="primary">Add wish</Button>
      <Table columns={this.columns} dataSource={this.state.data} />
     </div>
