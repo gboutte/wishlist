@@ -19,19 +19,40 @@ async function list(req,res){
      }
 
   });
-  for(var i = 0;i < wishes.length;i++){
-    try{
-
-        var img = await getImage(wishes[i]);
-
-        wishes[i].dataValues.img = img;
-    }catch(error){
-    }
-  }
+  // for(var i = 0;i < wishes.length;i++){
+  //   try{
+  //
+  //       var img = await getImage(wishes[i]);
+  //
+  //       wishes[i].dataValues.img = img;
+  //   }catch(error){
+  //   }
+  // }
 
     Response.successData(res,wishes);
 }
 
+async function image(req,res){
+
+  let wish = await db.Wish.findOne({
+     where: {
+        disabled:false,
+        id:req.params.id
+     }
+
+  });
+
+    try{
+
+        var img = await getImage(wish);
+
+        wish.dataValues.img = img;
+    }catch(error){
+    }
+
+
+    Response.successData(res,wish);
+}
 
 
 
@@ -97,3 +118,4 @@ async function getImage(wish){
   }
 }
 module.exports.list = list;
+module.exports.image = image;

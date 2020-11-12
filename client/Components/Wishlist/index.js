@@ -39,6 +39,8 @@ class Wishlist extends React.Component {
       {this.state.data.map((wish,i)=>{
         return <Wish
           key={i}
+          key={i}
+          id={wish.id}
           title={wish.title}
           description={wish.description}
           price={wish.price}

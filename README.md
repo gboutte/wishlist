@@ -50,3 +50,11 @@ Puis executer la commande suivante
 ```sh
 docker-compose --env-file .env.docker up --build -d
 ```
+```sh
+docker-compose --env-file .env.docker up --build --no-deps --force-recreate -d
+
+```
+
+```sh
+docker-compose --env-file .env.docker build --no-cache
+```
