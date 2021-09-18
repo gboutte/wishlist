@@ -2,6 +2,7 @@ import React from 'react';
 import '../../Css/main.css';
 import axios from 'axios'
 import Wish from '../Wish';
+import WishService from '../../Service/WishServices';
 
 
 class Wishlist extends React.Component {
@@ -18,20 +19,12 @@ class Wishlist extends React.Component {
 
   componentDidMount() {
     var self = this;
-       axios.get(process.env.API_DOMAIN+'/api/public/wish')
-       .then(function (response) {
-         // handle success
-         self.setState({
-           data:response.data.data
-         })
-       })
-       .catch(function (error) {
-         // handle error
-         console.log(error);
-       })
-       .then(function () {
-         // always executed
-       });
+
+      WishService.getAll().then((wishes)=>{
+        self.setState({
+          data:wishes
+        })
+      })
 
   }
   render() {

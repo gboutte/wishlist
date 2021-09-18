@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import 'antd/dist/antd.css';
 import './style.css';
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import AdminList from '../AdminList';
 import { Table, Tag, Space } from 'antd';
 import { Form, Input, Button } from 'antd';
@@ -15,47 +15,47 @@ class AdminLogin extends React.Component {
     this.callback = props.callback;
 
 
-        this.onFinish = this.onFinish.bind(this);
+    this.onFinish = this.onFinish.bind(this);
     this.state = {
-            token:null,
-            connected:false
-        };
+      token: null,
+      connected: false
+    };
 
   }
   onFinish(values) {
-      var self = this;
-       axios.post(process.env.API_DOMAIN+'/api/user/login',{
-         username:values.username,
-         password:values.password
-       })
-       .then(function (response) {
+    var self = this;
+    axios.post(process.env.API_DOMAIN + '/api/user/login', {
+      username: values.username,
+      password: values.password
+    })
+      .then(function (response) {
 
-          if(typeof response.data.data.token != "undefined"){
+        if (typeof response.data.data.token != "undefined") {
 
-            localStorage.setItem('token', response.data.data.token);
-            self.callback();
-          }
+          localStorage.setItem('token', response.data.data.token);
+          self.callback();
+        }
 
-       })
-       .catch(function (error) {
+      })
+      .catch(function (error) {
 
-                  console.log(error);
-       })
-       .then(function () {
-       });
+        console.log(error);
+      })
+      .then(function () {
+      });
   };
 
-  onFinishFailed(errorInfo){
+  onFinishFailed(errorInfo) {
     console.log('Failed:', errorInfo);
   };
-  loginForm(){
+  loginForm() {
     const layout = {
-    labelCol: {
-    span: 8,
-    },
-    wrapperCol: {
-    span: 16,
-    },
+      labelCol: {
+        span: 8,
+      },
+      wrapperCol: {
+        span: 16,
+      },
     };
     const tailLayout = {
       wrapperCol: {
@@ -66,35 +66,35 @@ class AdminLogin extends React.Component {
 
     return (<div className="my-container">
       <Form
-            name="normal_login"
-            className="login-form"
-            onFinish={this.onFinish}
-          >
-            <Form.Item
-              name="username"
-              rules={[{ required: true, message: 'Please input your Username!' }]}
-            >
-              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                { required: true, message: 'Please input your Password!' }
-            ]}
-            >
-              <Input.Password
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                type="password"
-                placeholder="Password"
-              />
-            </Form.Item>
+        name="normal_login"
+        className="login-form"
+        onFinish={this.onFinish}
+      >
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: 'Please input your Username!' }]}
+        >
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[
+            { required: true, message: 'Please input your Password!' }
+          ]}
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
 
-            <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-form-button">
-                Login
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button">
+            Login
               </Button>
-            </Form.Item>
-          </Form>
+        </Form.Item>
+      </Form>
     </div>);
 
   }
@@ -103,7 +103,7 @@ class AdminLogin extends React.Component {
     return <div>
       {this.loginForm()}
     </div>
-    ;
+      ;
   }
 }
 
