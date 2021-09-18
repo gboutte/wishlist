@@ -7,16 +7,16 @@ module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, 'client', 'index.js'),
   output: {
-  	// the output of the webpack build will be in /dist directory
+    // the output of the webpack build will be in /dist directory
     path: path.resolve(__dirname, 'dist'),
     // the filename of the JS bundle will be bundle.js
     filename: 'bundle.js',
-    publicPath:'/'
+    publicPath: '/'
   },
   module: {
     rules: [
       {
-      	// for any file with a suffix of js or jsx
+        // for any file with a suffix of js or jsx
         test: /\.jsx?$/,
         // ignore transpiling JavaScript from node_modules as it should be that state
         exclude: /node_modules/,
@@ -24,7 +24,7 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           // attach the presets to the loader (most projects use .babelrc file instead)
-          presets: ["@babel/preset-env", "@babel/preset-react"]
+          presets: ['@babel/preset-env', '@babel/preset-react']
         }
       },
       {
@@ -32,23 +32,23 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-       test: /\.(png|jp(e*)g|svg|gif)$/,
-       use: [
-         {
-           loader: 'file-loader',
-           options: {
-             name: 'images/[hash]-[name].[ext]',
-           },
-         },
-       ],
-     }
+        test: /\.(png|jp(e*)g|svg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[hash]-[name].[ext]',
+            },
+          },
+        ],
+      }
     ]
   },
   devServer: {
-    contentBase: path.join(__dirname, "client"),
+    contentBase: path.join(__dirname, 'client'),
     historyApiFallback: true,
     port: 8080
-},
+  },
   // add a custom index.html as the template
   plugins: [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'client', 'index.html') }),

@@ -6,36 +6,40 @@ chai.use(chaiHttp);
 
 const app = require('../../src/lib/app');
 
-describe('Response', function(){
-    before(function(done) {
-        db.User.destroy({where:{}}).then(()=>done());
-    });
+describe('Response', () => {
+  before((done) => {
+    db.User.destroy({ where: {} }).then(() => done());
+  });
 
-   
-    it('Not found', (done) => {
-        //First we register
+
+  it('Not found', (done) => {
+    //First we register
+    chai.request(app)
+      .post('/api/install/user').send({
+        username: 'gboutte',
+        password: 'abcd1234'
+      })
+      .end((error, response) => {
+        if (error) {
+          return done(error);
+        }
+        // Now let's check our response
+        expect(response).to.have.status(200);
+
+        //Then if registered right we try an unkown route
         chai.request(app)
-        .post('/api/install/user').send({
-            username:"gboutte",
-            password:"abcd1234"
-        })
-        .end((error, response) => {
-            if (error) done(error);
+          .get('/api/sdfgsdfsd')
+          .end((error, response) => {
+            if (error) {
+              return done(error);
+            }
             // Now let's check our response
-            expect(response).to.have.status(200);
-            
-            //Then if registered right we try an unkown route
-            chai.request(app)
-            .get('/api/sdfgsdfsd')
-            .end((error, response) => {
-                if (error) done(error);
-                // Now let's check our response
-                expect(response).to.have.status(404);
-                done();
-            });
-        
-        });
-    });
+            expect(response).to.have.status(404);
+            done();
+          });
+
+      });
+  });
 
 });
 

@@ -3,11 +3,19 @@
     "env": {
       "node": true
     },
-  
     "parserOptions": {
-      "ecmaVersion": 2018
+      "ecmaVersion": 2018,
+      "sourceType": "module"
     },
-  
+    "overrides": [
+      {
+        "files": [ "client/**/*.js" ],
+        "parser": "@babel/eslint-parser",
+        "parserOptions": {
+          "requireConfigFile": false
+        }
+      }
+    ],
     "globals": {
       // If "no-undef" is enabled below, be sure to list all global variables that
       // are used in this app's backend code (including the globalIds of models):

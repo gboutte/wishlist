@@ -2,10 +2,10 @@ const uuid = require('uuid/v4');
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Wish = sequelize.define('Wish', {
-    id:{
-        primaryKey:true,
-        type: DataTypes.UUID,
-        defaultValue: ()=> uuid(),
+    id: {
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: () => uuid(),
     },
     title: DataTypes.STRING,
     link: DataTypes.STRING,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.FLOAT,
     disabled: DataTypes.BOOLEAN
   }, {});
-  Wish.associate = function(models) {
+  Wish.associate = function (models) {
     Wish.hasMany(models.Picture);
   };
   return Wish;

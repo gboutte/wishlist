@@ -11,8 +11,8 @@ class ErrorCode {
         error: "ERROR_USER_PASSWORD_NUMBER"
     };
     static userUsername = {
-      error: "ERROR_USER_USERNAME"
+        error: "ERROR_USER_USERNAME"
     };
-  }
+}
 
-  module.exports = ErrorCode;
+module.exports = ErrorCode;

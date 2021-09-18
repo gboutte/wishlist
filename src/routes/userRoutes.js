@@ -1,33 +1,32 @@
 const router = require('express').Router();
-const { checkSchema } = require("express-validator");
+const { checkSchema } = require('express-validator');
 const ErrorCode = require('../utils/errorCode');
-const validate =  require("../utils/validate");;
+const validate = require('../utils/validate');
 
-const {login} = require('../controller/userController');
+const { login } = require('../controller/userController');
 
-router.post('/login',validate(
-    checkSchema({
-      password: {
-        in: ["body"],
-        isLength: {
-          errorMessage: ErrorCode.userPasswordLength,
-          options: { min: 8 }
-        },
-        matches: {
-          errorMessage: ErrorCode.userPasswordNumber,
-          options: [/[0-9]/, "g"]
-        }
+router.post('/login', validate(
+  checkSchema({
+    password: {
+      in: ['body'],
+      isLength: {
+        errorMessage: ErrorCode.userPasswordLength,
+        options: { min: 8 }
       },
-      username: {
-          errorMessage: ErrorCode.userUsername,
-          in: ["body"],
-          isLength: {
-            options: { min: 4 }
-          },
+      matches: {
+        errorMessage: ErrorCode.userPasswordNumber,
+        options: [/[0-9]/, 'g']
       }
-    })
-  )
-  ,login);
+    },
+    username: {
+      errorMessage: ErrorCode.userUsername,
+      in: ['body'],
+      isLength: {
+        options: { min: 4 }
+      },
+    }
+  })
+), login);
 
 
 module.exports = router;

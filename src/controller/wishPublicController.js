@@ -1,22 +1,18 @@
 
 const Response = require('../utils/Response');
-const ErrorCode = require('../utils/errorCode');
 const db = require('../models');
-const {getMetadata,metadataRuleSets} = require('page-metadata-parser');
+const { getMetadata } = require('page-metadata-parser');
 const domino = require('domino');
-var http = require('http');
-var https = require('https');
-const urlPack = require('url');
 var request = require('request');
 fs = require('fs');
 
 
-async function list(req,res){
+async function list(req, res) {
 
   let wishes = await db.Wish.findAll({
-     where: {
-        disabled:false
-     }
+    where: {
+      disabled: false
+    }
 
   });
   // for(var i = 0;i < wishes.length;i++){
@@ -29,76 +25,76 @@ async function list(req,res){
   //   }
   // }
 
-    Response.successData(res,wishes);
+  Response.successData(res, wishes);
 }
 
-async function image(req,res){
+async function image(req, res) {
 
   let wish = await db.Wish.findOne({
-     where: {
-        disabled:false,
-        id:req.params.id
-     }
+    where: {
+      disabled: false,
+      id: req.params.id
+    }
 
   });
 
-    try{
+  try {
 
-        var img = await getImage(wish);
+    var img = await getImage(wish);
 
-        wish.dataValues.img = img;
-    }catch(error){
-    }
+    wish.dataValues.img = img;
+  } catch (error) {
+    console.error(error);
+  }
 
 
-    Response.successData(res,wish);
+  Response.successData(res, wish);
 }
 
 
 
-async function getImage(wish){
-  if(typeof wish.picture == "undefined" || wish.picture == null){
+async function getImage(wish) {
+  if (typeof wish.picture === 'undefined' || wish.picture === null) {
 
     var customRules = {};
     customRules.img = {};
     customRules.img.rules = [];
-    customRules.img.rules.push(      ['meta[property="og:image"]', element  =>  element.getAttribute('content')])
-    customRules.img.rules.push(      ['meta[property="og:image:secure_url"]', element  => element.getAttribute('content')])
-    customRules.img.rules.push(      ['meta[property="twitter:image"]', element  => element.getAttribute('content')])
+    customRules.img.rules.push(['meta[property="og:image"]', element => element.getAttribute('content')]);
+    customRules.img.rules.push(['meta[property="og:image:secure_url"]', element => element.getAttribute('content')]);
+    customRules.img.rules.push(['meta[property="twitter:image"]', element => element.getAttribute('content')]);
 
     var url = wish.link;
 
     var headers = {
-        'accept-language': 'en-US,en;q=0.9,pt;q=0.8',
-        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'accept': '*/*',
-        'x-requested-with': 'XMLHttpRequest'
+      'accept-language': 'en-US,en;q=0.9,pt;q=0.8',
+      'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
+      'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'accept': '*/*',
+      'x-requested-with': 'XMLHttpRequest'
     };
 
 
     var options = {
-        url: url,
-        method: 'GET',
-        headers: headers,
+      url: url,
+      method: 'GET',
+      headers: headers,
     };
 
-    var name = wish.title;
 
-    return new Promise((resolve,reject)=>{
-      request(options, async function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            const html = body;
-             const doc = domino.createWindow(html).document;
+    return new Promise((resolve, reject) => {
+      request(options, async (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+          const html = body;
+          const doc = domino.createWindow(html).document;
 
-             const metadata = getMetadata(doc, url,customRules);
+          const metadata = getMetadata(doc, url, customRules);
 
-             resolve(metadata.img)
-          }else{
-            reject("error")
-          }
-            // console.log(url);
-        })
+          resolve(metadata.img);
+        } else {
+          reject('error');
+        }
+        // console.log(url);
+      });
     });
 
 

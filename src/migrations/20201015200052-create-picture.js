@@ -22,19 +22,19 @@ module.exports = {
         defaultValue: () => new Date(),
       },
       wishId: {
-          type: Sequelize.UUID,
-          references: {
-             model: {
-               tableName: 'Wishes',
-               schema: 'public'
-             },
-             key: 'id'
-           },
+        type: Sequelize.UUID,
+        references: {
+          model: {
+            tableName: 'Wishes',
+            schema: 'public'
+          },
+          key: 'id'
+        },
 
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('Pictures');
   }
 };
