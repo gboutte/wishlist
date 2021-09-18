@@ -10,7 +10,8 @@ class Wishlist extends React.Component {
     this.state = {
           data:[
 
-          ]
+          ],
+          title:process.env.TITLE_NAME
         };
 
   }
@@ -35,7 +36,7 @@ class Wishlist extends React.Component {
   }
   render() {
     return <div>
-      <h1>Rudy's Wishlist</h1>
+      <h1>{this.state.title}'s Wishlist</h1>
       {this.state.data.map((wish,i)=>{
         return <Wish
           key={i}

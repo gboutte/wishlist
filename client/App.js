@@ -1,7 +1,7 @@
 import React from 'react';
-import Front  from './Components/Front';
-import Loader  from './Components/Loader';
-import Admin  from './Components/Admin';
+import Front  from './Pages/Front';
+import Loader  from './Pages/Loader';
+import Admin  from './Pages/Admin';
 import axios from 'axios'
 import {
   BrowserRouter as Router,

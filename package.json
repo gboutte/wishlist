@@ -13,7 +13,8 @@
     "coverage": "nyc npm test",
     "deploy": "npm run build && npm run migrations",
     "build": "webpack",
-    "migrations": "npx sequelize-cli db:migrate"
+    "migrations": "npx sequelize-cli db:migrate",
+    "lint": "./node_modules/eslint/bin/eslint.js . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
     "@babel/preset-react": "^7.12.1",
     "babel-loader": "^8.1.0",
     "css-loader": "^5.0.0",
+    "eslint": "^7.32.0",
     "file-loader": "^6.1.1",
     "html-webpack-plugin": "^4.5.0",
     "nodemon": "^2.0.2",

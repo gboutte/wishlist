@@ -3,8 +3,8 @@ import axios from 'axios'
 import 'antd/dist/antd.css';
 import './style.css';
 import {Redirect} from "react-router-dom";
-import AdminList from '../AdminList';
-import AdminLogin from '../AdminLogin';
+import AdminList from '../../Components/AdminList';
+import AdminLogin from '../../Components/AdminLogin';
 import { Table, Tag, Space } from 'antd';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';

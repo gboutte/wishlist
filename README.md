@@ -1,18 +1,24 @@
 # Wishlist
 
-## Installation
+## Installation pour le développement
 Installer les dépendances
 ```sh
 npm install
 ```
 
-Definir les variables d'environnement
+Definir les variables d'environnement dans .env
 
 | Nom          |                  Description                  |
 |--------------|:---------------------------------------------:|
 | DATABASE_URL |    L'url de connexion a la base de données    |
 | TOKEN_SECRET | La clé utilisé pour la création des token JWT |
+
+Dans front/.env
+
+| Nom          |                  Description                  |
+|--------------|:---------------------------------------------:|
 | API_DOMAIN | L'url a utiliser pour les appels api (ex: http://localhost:3000) |
+| TITLE_NAME | Le titre |
 
 
 Lancer les migrations et le 1er build

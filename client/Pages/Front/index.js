@@ -1,5 +1,5 @@
 import React from 'react';
-import Wishlist  from '../Wishlist';
+import Wishlist  from '../../Components/Wishlist';
 import Installation  from '../Installation';
 import Loader  from '../Loader';
 import axios from 'axios'
