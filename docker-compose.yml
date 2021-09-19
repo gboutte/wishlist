@@ -6,6 +6,8 @@ services:
       dockerfile: ./Dockerfile
       args:
         - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_DATABASE}
+        - TITLE_NAME=${TITLE_NAME}
+        - API_DOMAIN=${API_DOMAIN}
     depends_on:
       - postgres
     environment:
