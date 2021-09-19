@@ -27,6 +27,10 @@ Lancer les migrations et le 1er build
 npm run deploy
 ```
 
+Lancement des serveurs de développement
+```sh
+npm run start:dev
+```
 
 ## Commandes npm
 
@@ -51,6 +55,7 @@ DB_PASSWORD=password
 DB_DATABASE=wishlist
 API_DOMAIN=http://localhost:3000
 TOKEN_SECRET=secret
+TITLE_NAME=rudy
 ```
 Puis executer la commande suivante
 ```sh
