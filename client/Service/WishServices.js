@@ -28,11 +28,13 @@ export default class WishService {
       url += '/api/public/wish';
     }
     const request = axios.get(url);
-    return new Promise((resolve) => {
+    return new Promise((resolve,reject) => {
       request.then((response) => {
         let allData = response.data.data;
         resolve(allData);
 
+      }).catch((error)=>{
+        reject(error);
       });
     });
   }

@@ -24,7 +24,7 @@ class AdminLogin extends React.Component {
 
     UserService.login(values.username, values.password).then((response) => {
       if (typeof response.token !== 'undefined') {
-        localStorage.setItem('token', response.data.data.token);
+        localStorage.setItem('token', response.token);
         self.callback();
       }
     })

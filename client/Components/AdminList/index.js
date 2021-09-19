@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Table, Space } from 'antd';
-import { Button, Modal, Form, Input, InputNumber, Switch } from 'antd';
+import './style.css';
+import { Button, Modal, Form, Input, InputNumber, Switch, Table, Space, Row, Col } from 'antd';
 import WishService from '../../Service/WishServices';
 
 class AdminList extends React.Component {
@@ -146,7 +146,7 @@ class AdminList extends React.Component {
 
     return <Modal
       footer={null}
-      title="Add a wish"
+      title="Edit a wish"
       visible={this.state.modalEdit}
       onOk={this.closeEdit}
       onCancel={this.closeEdit}
@@ -320,8 +320,17 @@ class AdminList extends React.Component {
       {this.modalAdd()}
       {this.modalEdit()}
       {this.modalDelete()}
-      <Button onClick={this.add} type="primary">Add wish</Button>
-      <Table columns={this.columns} dataSource={this.state.data} />
+      <Row>
+        <Col className="gutter-box" span={20} offset={2}>
+          <Space>
+            <Button onClick={this.add} type="primary">Add wish</Button>
+          </Space>
+        </Col>
+
+        <Col className="gutter-box" span={20} offset={2}>
+          <Table columns={this.columns} dataSource={this.state.data} />
+        </Col>
+      </Row>
     </div>;
   }
 }

@@ -29,7 +29,7 @@ async function login(req, res) {
     let user = users[0];
     const validPassword = await bcrypt.compare(req.body.password, user.password);
 
-    if (!validPassword) { return Response.badRequest(res, ErrorCode.get('userBadCreditentials')); }
+    if (!validPassword) { return Response.badRequest(res, ErrorCode.get('userBadCredentials')); }
 
     Response.success(res, { token: Authenticator.getToken(user) });
 
