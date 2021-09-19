@@ -83,7 +83,7 @@ class AdminList extends React.Component {
   loadWish() {
     var self = this;
 
-    WishService.getAll()
+    WishService.getAllAdmin()
       .then((wishes) => {
         // handle success
         self.setState({

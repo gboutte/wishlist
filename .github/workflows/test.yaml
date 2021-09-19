@@ -13,14 +13,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Write docker.env
+      - name: Write .env
         run: 
-          touch .env.docker &&
-          echo "DB_USER=user" > .env.docker &&
-          echo "DB_PASSWORD=password" > .env.docker &&
-          echo "DB_DATABASE=wishlist" > .env.docker &&
-          echo "API_DOMAIN=http://localhost:8005" > .env.docker &&
-          echo "TOKEN_SECRET=secret" > .env.docker
+          touch .env &&
+          echo "DATABASE_URL=postgres://user:password@localhost/database" > .env &&
+          echo "TOKEN_SECRET=secret" > .env
+
+      - name: Write client .env
+        run: 
+          touch ./client/.env &&
+          echo "API_DOMAIN=http://localhost:3000" > ./client/.env &&
+          echo "TITLE_NAME=Rudy" > ./client/.env
 
       - name: Cache node modules
         id: cache-nodemodules

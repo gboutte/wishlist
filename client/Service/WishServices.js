@@ -14,8 +14,20 @@ axios.interceptors.request.use(
 );
 
 export default class WishService {
-  static getAll() {
-    const request = axios.get(process.env.API_DOMAIN + '/api/public/wish');
+  static getAllPublic() {
+    return this.getAll(false);
+  }
+  static getAllAdmin() {
+    return this.getAll(true);
+  }
+  static getAll(admin) {
+    let url = process.env.API_DOMAIN;
+    if(admin){
+      url += '/api/wish';
+    }else{
+      url += '/api/public/wish';
+    }
+    const request = axios.get(url);
     return new Promise((resolve) => {
       request.then((response) => {
         let allData = response.data.data;
@@ -24,6 +36,7 @@ export default class WishService {
       });
     });
   }
+
   static get(id) {
     const request = axios.get(process.env.API_DOMAIN + '/api/wish/' + id);
     return new Promise((resolve, reject) => {
