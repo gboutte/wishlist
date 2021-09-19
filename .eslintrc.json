@@ -1,7 +1,8 @@
 {
 
     "env": {
-      "node": true
+      "node": true,
+      "es6": true
     },
     "parserOptions": {
       "ecmaVersion": 2018,
@@ -12,20 +13,23 @@
         "files": [ "client/**/*.js" ],
         "parser": "@babel/eslint-parser",
         "parserOptions": {
-          "requireConfigFile": false
-        }
+          "requireConfigFile": false,
+          "ecmaFeatures": {
+            "jsx": true
+          },
+          "babelOptions": {
+            "presets": ["@babel/preset-react"]
+         }
+        },
+        "extends": [
+          "eslint:recommended",
+          "plugin:react/recommended"
+        ],
+        "plugins": [
+          "jsx"
+        ]
       }
     ],
-    "globals": {
-      // If "no-undef" is enabled below, be sure to list all global variables that
-      // are used in this app's backend code (including the globalIds of models):
-      // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      "Promise": true,
-      "sails": true,
-      "_": true
-      // …and any others (e.g. `"Organization": true`)
-      // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    },
   
     "rules": {
       "block-scoped-var":             ["error"],
@@ -56,10 +60,6 @@
       "no-sequences":                 ["error"],
       "no-trailing-spaces":           ["warn"],
       "no-undef":                     ["off"],
-      // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      // ^^Note: If this "no-undef" rule is enabled (set to `["error"]`), then all model globals
-      // (e.g. `"Organization": true`) should be included above under "globals".
-      // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       "no-unexpected-multiline":      ["warn"],
       "no-unreachable":               ["warn"],
       "no-unused-vars":               ["warn", {"caughtErrors":"all", "caughtErrorsIgnorePattern": "^unused($|[A-Z].*$)", "argsIgnorePattern": "^unused($|[A-Z].*$)", "varsIgnorePattern": "^unused($|[A-Z].*$)" }],
