@@ -24,6 +24,7 @@ jobs:
 
       - name: Build the Docker image
         run: docker-compose --env-file .env.docker up --build -d
+      - name: Run migrations
+        run: docker exec wishlist_app_1 npm run migrations
       - name: Run Tests
-        run: |
-          docker exec wishlist_app_1 npm run test
+        run: docker exec wishlist_app_1 npm run test
