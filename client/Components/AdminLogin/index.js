@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import 'antd/dist/antd.css';
 import './style.css';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import UserService from '../../Service/UserServices';
 
 class AdminLogin extends React.Component {
 
@@ -21,17 +21,13 @@ class AdminLogin extends React.Component {
   }
   onFinish(values) {
     var self = this;
-    axios.post(process.env.API_DOMAIN + '/api/user/login', {
-      username: values.username,
-      password: values.password
-    })
-      .then((response) => {
 
-        if (typeof response.data.data.token !== 'undefined') {
-          localStorage.setItem('token', response.data.data.token);
-          self.callback();
-        }
-      })
+    UserService.login(values.username, values.password).then((response) => {
+      if (typeof response.token !== 'undefined') {
+        localStorage.setItem('token', response.data.data.token);
+        self.callback();
+      }
+    })
       .catch((error) => {
         console.log(error);
       });

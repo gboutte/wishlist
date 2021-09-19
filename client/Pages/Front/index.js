@@ -2,7 +2,7 @@ import React from 'react';
 import Wishlist from '../../Components/Wishlist';
 import Installation from '../Installation';
 import Loader from '../Loader';
-import axios from 'axios';
+import WishService from '../../Service/WishServices';
 
 
 class Front extends React.Component {
@@ -19,11 +19,11 @@ class Front extends React.Component {
 
   componentDidMount() {
     var self = this;
-    axios.get(process.env.API_DOMAIN + '/api/public/wish')
-      .then((response) => {
+    WishService.getAll()
+      .then((wishes) => {
         // handle success
         self.setState({
-          data: response.data.data,
+          data: wishes,
           installed: true
         });
 

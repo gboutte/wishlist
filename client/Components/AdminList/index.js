@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import 'antd/dist/antd.css';
 import { Table, Space } from 'antd';
 import { Button, Modal, Form, Input, InputNumber, Switch } from 'antd';
+import WishService from '../../Service/WishServices';
 
 class AdminList extends React.Component {
 
@@ -62,9 +62,7 @@ class AdminList extends React.Component {
       editRecord: null,
       deleteId: null
     };
-    this.headers = {
-      headers: { Authorization: 'Bearer ' + this.token }
-    };
+
     this.add = this.add.bind(this);
     this.delete = this.delete.bind(this);
     this.modalAdd = this.modalAdd.bind(this);
@@ -85,11 +83,11 @@ class AdminList extends React.Component {
   loadWish() {
     var self = this;
 
-    axios.get(process.env.API_DOMAIN + '/api/wish')
-      .then((response) => {
+    WishService.getAll()
+      .then((wishes) => {
         // handle success
         self.setState({
-          data: response.data.data.map((record) => {
+          data: wishes.map((record) => {
             record['key'] = record.id;
             return record;
           })
@@ -108,12 +106,12 @@ class AdminList extends React.Component {
   }
   edit(id) {
     var self = this;
-    axios.get(process.env.API_DOMAIN + '/api/wish/' + id, this.headers)
-      .then((response) => {
+    WishService.get(id)
+      .then((wish) => {
         self.setState({
           modalEdit: true,
           editId: id,
-          editRecord: response.data.data
+          editRecord: wish
         });
       })
       .catch((error) => {
@@ -183,13 +181,7 @@ class AdminList extends React.Component {
   }
   onFinishAdd(values) {
     var self = this;
-    axios.post(process.env.API_DOMAIN + '/api/wish', {
-      title: values.title,
-      description: values.description,
-      link: values.link,
-      disabled: values.disabled,
-      price: values.price
-    }, this.headers)
+    WishService.post(values)
       .then(() => {
         self.loadWish();
         self.closeAdd();
@@ -201,7 +193,7 @@ class AdminList extends React.Component {
 
   onFinishDelete() {
     var self = this;
-    axios.delete(process.env.API_DOMAIN + '/api/wish/' + self.state.deleteId, this.headers)
+    WishService.delete(self.state.deleteId)
       .then(() => {
         self.loadWish();
         self.closeDelete();
@@ -259,14 +251,8 @@ class AdminList extends React.Component {
   }
   onFinishEdit(values) {
     var self = this;
-    axios.put(process.env.API_DOMAIN + '/api/wish', {
-      id: self.state.editId,
-      title: values.title,
-      description: values.description,
-      link: values.link,
-      disabled: values.disabled,
-      price: values.price
-    }, this.headers)
+
+    WishService.put(self.state.editId, values)
       .then(() => {
         self.loadWish();
         self.closeEdit();

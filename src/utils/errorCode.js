@@ -1,11 +1,10 @@
 
 class ErrorCode {
-
-    static userBadCreditentials = {
-        error: "ERROR_USER_CREDITENTIAL_INCORRECT"
-    };
     static userPasswordLength = {
         error: "ERROR_USER_PASSWORD_LENGTH"
+    };
+    static userBadCreditentials = {
+        error: "ERROR_USER_CREDENTIAL_INCORRECT"
     };
     static userPasswordNumber = {
         error: "ERROR_USER_PASSWORD_NUMBER"

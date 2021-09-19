@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import 'antd/dist/antd.css';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Redirect } from 'react-router-dom';
+import UserService from '../../Service/UserServices';
 
 class Installation extends React.Component {
 
@@ -17,10 +17,8 @@ class Installation extends React.Component {
   }
   onFinish(values) {
     var self = this;
-    axios.post(process.env.API_DOMAIN + '/api/install/user', {
-      username: values.username,
-      password: values.password
-    })
+
+    UserService.install(values.username, values.password)
       .then(() => {
         self.setState({
           redirect: true

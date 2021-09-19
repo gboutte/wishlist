@@ -1,5 +1,17 @@
 
 import axios from 'axios';
+axios.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token !== null) {
+      config.headers.authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 export default class WishService {
   static getAll() {
@@ -12,7 +24,66 @@ export default class WishService {
       });
     });
   }
+  static get(id) {
+    const request = axios.get(process.env.API_DOMAIN + '/api/wish/' + id);
+    return new Promise((resolve, reject) => {
+      request.then((response) => {
+        let wish = response.data.data;
+        resolve(wish);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  }
 
+  static post(values) {
+    const request = axios.post(process.env.API_DOMAIN + '/api/wish', {
+      title: values.title,
+      description: values.description,
+      link: values.link,
+      disabled: values.disabled,
+      price: values.price
+    });
+
+    return new Promise((resolve, reject) => {
+      request.then(() => {
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  }
+
+  static delete(id) {
+    const request = axios.delete(process.env.API_DOMAIN + '/api/wish/' + id);
+    return new Promise((resolve, reject) => {
+      request.then(() => {
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+
+  }
+
+  static put(id, values) {
+    const request = axios.put(process.env.API_DOMAIN + '/api/wish', {
+      id: id,
+      title: values.title,
+      description: values.description,
+      link: values.link,
+      disabled: values.disabled,
+      price: values.price
+    });
+
+    return new Promise((resolve, reject) => {
+      request.then(() => {
+        resolve();
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  }
   static getImage(id) {
     return new Promise((resolve) => {
 
