@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import './style.css';
 import AdminList from '../../Components/AdminList';
 import AdminLogin from '../../Components/AdminLogin';
-import { Button, Col, Row } from 'antd';
+import { Button } from 'antd';
 
 class Admin extends React.Component {
 
@@ -31,7 +31,7 @@ class Admin extends React.Component {
       connected: true
     });
   }
-  logout(){
+  logout() {
     localStorage.setItem('token', null);
     localStorage.removeItem('token');
     this.setState({
