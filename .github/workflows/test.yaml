@@ -17,13 +17,13 @@ jobs:
         run: 
           touch .env &&
           echo "DATABASE_URL=postgres://user:password@localhost/database" > .env &&
-          echo "TOKEN_SECRET=secret" > .env
+          echo "TOKEN_SECRET=secret" >> .env
 
       - name: Write client .env
         run: 
           touch ./client/.env &&
           echo "API_DOMAIN=http://localhost:3000" > ./client/.env &&
-          echo "TITLE_NAME=Rudy" > ./client/.env
+          echo "TITLE_NAME=Rudy" >> ./client/.env
 
       - name: Cache node modules
         id: cache-nodemodules
