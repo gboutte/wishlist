@@ -5,7 +5,7 @@ h2 {
     text-decoration: underline;
 }
 
-p{
+p.global-desc{
     text-align: center;
     color: white;
     margin-bottom: 50px !important;

@@ -61,7 +61,7 @@ class Wishlist extends React.Component {
   render() {
     return <div>
       <h1>{this.state.title}&apos;s Wishlist</h1>
-      <p>
+      <p className="global-desc">
         Vous trouverez ci-dessous des idées de cadeaux classés par ordre de préférence.
         <br />
         L&apos;ordre de préférence 1 correspond à ce que je désire plus que tout.
