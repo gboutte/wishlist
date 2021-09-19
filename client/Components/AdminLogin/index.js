@@ -1,10 +1,7 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import 'antd/dist/antd.css';
 import './style.css';
-import { Redirect } from "react-router-dom";
-import AdminList from '../AdminList';
-import { Table, Tag, Space } from 'antd';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
@@ -28,41 +25,22 @@ class AdminLogin extends React.Component {
       username: values.username,
       password: values.password
     })
-      .then(function (response) {
+      .then((response) => {
 
-        if (typeof response.data.data.token != "undefined") {
-
+        if (typeof response.data.data.token !== 'undefined') {
           localStorage.setItem('token', response.data.data.token);
           self.callback();
         }
-
       })
-      .catch(function (error) {
-
+      .catch((error) => {
         console.log(error);
-      })
-      .then(function () {
       });
-  };
+  }
 
   onFinishFailed(errorInfo) {
     console.log('Failed:', errorInfo);
-  };
+  }
   loginForm() {
-    const layout = {
-      labelCol: {
-        span: 8,
-      },
-      wrapperCol: {
-        span: 16,
-      },
-    };
-    const tailLayout = {
-      wrapperCol: {
-        offset: 8,
-        span: 16,
-      },
-    };
 
     return (<div className="my-container">
       <Form
@@ -92,7 +70,7 @@ class AdminLogin extends React.Component {
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Login
-              </Button>
+          </Button>
         </Form.Item>
       </Form>
     </div>);
@@ -102,8 +80,7 @@ class AdminLogin extends React.Component {
 
     return <div>
       {this.loginForm()}
-    </div>
-      ;
+    </div>;
   }
 }
 

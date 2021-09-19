@@ -9,7 +9,10 @@
       "sourceType": "module"
     },
     "overrides": [
-      {
+      { 
+        "env" : {
+          "browser": true
+        },
         "files": [ "client/**/*.js" ],
         "parser": "@babel/eslint-parser",
         "parserOptions": {
@@ -27,7 +30,10 @@
         ],
         "plugins": [
           "jsx"
-        ]
+        ],
+        "rules": {
+          "react/prop-types": "off"
+        }        
       }
     ],
   

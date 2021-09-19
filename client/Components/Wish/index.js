@@ -2,7 +2,6 @@ import React from 'react';
 import './style.css';
 import gift from '../../img/gift.svg';
 import Price from '../Price';
-import axios from 'axios'
 import WishService from '../../Service/WishServices';
 
 class Wish extends React.Component {
@@ -22,20 +21,20 @@ class Wish extends React.Component {
     WishService.getImage(self.state.id).then((img) => {
       self.setState({
         img: img
-      })
-    })
+      });
+    });
 
   }
   getPrice() {
     if (this.state.price) {
-      return <Price price={this.state.price} />
+      return <Price price={this.state.price} />;
     } else {
       return null;
     }
   }
   getLink() {
     if (this.state.link) {
-      return <a target='_blank' href={this.state.link}><img src={gift} />Acheter et offrir à Rudy</a>;
+      return <a target='_blank' href={this.state.link} rel="noreferrer"><img src={gift} />Acheter et offrir à Rudy</a>;
     } else {
       return null;
     }
@@ -44,12 +43,13 @@ class Wish extends React.Component {
   render() {
     var price = this.getPrice();
     var link = this.getLink();
-    if (this.state.img != null) {
-      var stylePicture = {
+    var stylePicture;
+    if (this.state.img !== null) {
+      stylePicture = {
         backgroundImage: 'url(' + this.state.img + ')'
       };
     } else {
-      var stylePicture = {};
+      stylePicture = {};
     }
 
     return <div className="wishContainer">
@@ -63,8 +63,7 @@ class Wish extends React.Component {
           {link}
         </div>
       </div>
-    </div>
-      ;
+    </div>;
   }
 }
 

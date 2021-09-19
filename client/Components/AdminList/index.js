@@ -1,9 +1,8 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import 'antd/dist/antd.css';
-import {Redirect} from "react-router-dom";
-import { Table, Tag, Space } from 'antd';
-import { Button,Modal,Form,Input,InputNumber,Switch } from 'antd';
+import { Table, Space } from 'antd';
+import { Button, Modal, Form, Input, InputNumber, Switch } from 'antd';
 
 class AdminList extends React.Component {
 
@@ -37,7 +36,7 @@ class AdminList extends React.Component {
         key: 'enabled',
         render: (text, record) => (
           <Space size="middle">
-            { record.disabled ? "Yes":"No"}
+            {record.disabled ? 'Yes' : 'No'}
           </Space>
         ),
       },
@@ -46,26 +45,26 @@ class AdminList extends React.Component {
         key: 'action',
         render: (text, record) => (
           <Space size="middle">
-            <a onClick={()=>{self.edit(record.id)}}>Edit</a>
-            <a  onClick={()=>{self.delete(record.id)}}>Delete</a>
+            <a onClick={() => { self.edit(record.id); }}>Edit</a>
+            <a onClick={() => { self.delete(record.id); }}>Delete</a>
           </Space>
         ),
       },
     ];
 
     this.state = {
-            data:[
+      data: [
 
-           ],
-           modalAdd :false,
-           modalEdit :false,
-           editId:null,
-           editRecord:null,
-           deleteId:null
-        };
-         this.headers = {
-            headers: { Authorization: 'Bearer '+this.token }
-        };
+      ],
+      modalAdd: false,
+      modalEdit: false,
+      editId: null,
+      editRecord: null,
+      deleteId: null
+    };
+    this.headers = {
+      headers: { Authorization: 'Bearer ' + this.token }
+    };
     this.add = this.add.bind(this);
     this.delete = this.delete.bind(this);
     this.modalAdd = this.modalAdd.bind(this);
@@ -81,294 +80,252 @@ class AdminList extends React.Component {
 
   }
   componentDidMount() {
-    this.loadWish()
+    this.loadWish();
   }
-  loadWish(){
+  loadWish() {
     var self = this;
 
-    axios.get(process.env.API_DOMAIN+'/api/wish')
-    .then(function (response) {
-      // handle success
-      self.setState({
-        data:response.data.data.map((record)=>{
-          record['key'] = record.id;
-          return record;
-        })
+    axios.get(process.env.API_DOMAIN + '/api/wish')
+      .then((response) => {
+        // handle success
+        self.setState({
+          data: response.data.data.map((record) => {
+            record['key'] = record.id;
+            return record;
+          })
+        });
       })
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
+      .catch((error) => {
+        // handle error
+        console.log(error);
+      });
   }
-  add(){
+  add() {
     this.setState({
-      modalAdd:true
+      modalAdd: true
     });
 
   }
-  edit(id){
+  edit(id) {
     var self = this;
-    axios.get(process.env.API_DOMAIN+'/api/wish/'+id,this.headers)
-    .then(function (response) {
-      self.setState({
-        modalEdit:true,
-        editId:id,
-        editRecord:response.data.data
+    axios.get(process.env.API_DOMAIN + '/api/wish/' + id, this.headers)
+      .then((response) => {
+        self.setState({
+          modalEdit: true,
+          editId: id,
+          editRecord: response.data.data
+        });
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    })
-    .catch(function (error) {
 
-               console.log(error);
-    })
-    .then(function () {
+  }
+  delete(id) {
+    this.setState({
+      deleteId: id
     });
-
   }
-  delete(id){
-      this.setState({
-        deleteId:id
-      });
-  }
-  closeAdd(){
+  closeAdd() {
     this.setState({
       modalAdd: false
     });
   }
-  closeDelete(){
+  closeDelete() {
     this.setState({
       deleteId: null
     });
   }
-  closeEdit(){
+  closeEdit() {
     this.setState({
       modalEdit: false,
-      editId:null,
-      editRecord:null
+      editId: null,
+      editRecord: null
     });
   }
 
-  modalEdit(){
+  modalEdit() {
 
-    return   <Modal
+    return <Modal
       footer={null}
-        title="Add a wish"
-        visible={this.state.modalEdit}
-        onOk={this.closeEdit}
-        onCancel={this.closeEdit}
-      >
+      title="Add a wish"
+      visible={this.state.modalEdit}
+      onOk={this.closeEdit}
+      onCancel={this.closeEdit}
+    >
       {this.editForm()}
-      </Modal>;
+    </Modal>;
   }
-  modalAdd(){
-    return   <Modal
+  modalAdd() {
+    return <Modal
       footer={null}
-        title="Add a wish"
-        visible={this.state.modalAdd}
-        onOk={this.closeAdd}
-        onCancel={this.closeAdd}
-      >
+      title="Add a wish"
+      visible={this.state.modalAdd}
+      onOk={this.closeAdd}
+      onCancel={this.closeAdd}
+    >
       {this.addForm()}
-      </Modal>;
+    </Modal>;
   }
-  modalDelete(){
+  modalDelete() {
 
-    return   <Modal
+    return <Modal
       footer={null}
-        title="Delete a wish"
-        visible={this.state.deleteId != null}
-        onOk={this.closeDelete}
-        onCancel={this.closeDelete}
-      >
-        Do you want to delete the wish ?
-        <br/>
-        <Button type="primary" onClick={this.onFinishDelete} danger>Yes DELETE</Button> <Button onClick={this.closeDelete} type="primary">No</Button>
-      </Modal>;
+      title="Delete a wish"
+      visible={this.state.deleteId !== null}
+      onOk={this.closeDelete}
+      onCancel={this.closeDelete}
+    >
+      Do you want to delete the wish ?
+      <br />
+      <Button type="primary" onClick={this.onFinishDelete} danger>Yes DELETE</Button> <Button onClick={this.closeDelete} type="primary">No</Button>
+    </Modal>;
   }
   onFinishAdd(values) {
-      var self = this;
-       axios.post(process.env.API_DOMAIN+'/api/wish',{
-         title:values.title,
-         description:values.description,
-         link:values.link,
-         disabled:values.disabled,
-         price:values.price
-       },this.headers)
-       .then(function (response) {
-          self.loadWish();
-          self.closeAdd();
-       })
-       .catch(function (error) {
+    var self = this;
+    axios.post(process.env.API_DOMAIN + '/api/wish', {
+      title: values.title,
+      description: values.description,
+      link: values.link,
+      disabled: values.disabled,
+      price: values.price
+    }, this.headers)
+      .then(() => {
+        self.loadWish();
+        self.closeAdd();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-                  console.log(error);
-       })
-       .then(function () {
-       });
-  };
-onFinishDelete() {
-  var self = this;
-   axios.delete(process.env.API_DOMAIN+'/api/wish/'+self.state.deleteId,this.headers)
-   .then(function (response) {
-      self.loadWish();
-      self.closeDelete();
-   })
-   .catch(function (error) {
-
-              console.log(error);
-   })
-   .then(function () {
-   });
-}
-  onFinishFailed(errorInfo){
+  onFinishDelete() {
+    var self = this;
+    axios.delete(process.env.API_DOMAIN + '/api/wish/' + self.state.deleteId, this.headers)
+      .then(() => {
+        self.loadWish();
+        self.closeDelete();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  onFinishFailed(errorInfo) {
     console.log('Failed:', errorInfo);
-  };
-  addForm(){
-    const layout = {
-    labelCol: {
-    span: 8,
-    },
-    wrapperCol: {
-    span: 16,
-    },
-    };
-    const tailLayout = {
-      wrapperCol: {
-        offset: 8,
-        span: 16,
-      },
-    };
+  }
 
+  addForm() {
     return (<div className="my-container">
       <Form
-            name="normal_login"
-            className="login-form"
-            onFinish={this.onFinishAdd}
-          >
-            <Form.Item
-              name="title"
-              rules={[{ required: true, message: 'Please input the title!' }]}
-            >
-              <Input placeholder="Title" />
-            </Form.Item>
-            <Form.Item
-              name="description"
-            >
-              <Input.TextArea placeholder="Description" />
-            </Form.Item>
-            <Form.Item
-              name="price"
-            >
-              <InputNumber step="0.01" placeholder="Price" />
-            </Form.Item>
-            <Form.Item
-              name="link"
-            >
-              <Input placeholder="Link" />
-            </Form.Item>
-            <Form.Item
-              name="disabled"
-              label="Disabled"
-            >
-              <Switch  />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-form-button">
-                Add wish
-              </Button>
-            </Form.Item>
-          </Form>
+        name="normal_login"
+        className="login-form"
+        onFinish={this.onFinishAdd}
+      >
+        <Form.Item
+          name="title"
+          rules={[{ required: true, message: 'Please input the title!' }]}
+        >
+          <Input placeholder="Title" />
+        </Form.Item>
+        <Form.Item
+          name="description"
+        >
+          <Input.TextArea placeholder="Description" />
+        </Form.Item>
+        <Form.Item
+          name="price"
+        >
+          <InputNumber step="0.01" placeholder="Price" />
+        </Form.Item>
+        <Form.Item
+          name="link"
+        >
+          <Input placeholder="Link" />
+        </Form.Item>
+        <Form.Item
+          name="disabled"
+          label="Disabled"
+        >
+          <Switch />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button">
+            Add wish
+          </Button>
+        </Form.Item>
+      </Form>
     </div>);
 
   }
-  onFinishEdit(values){
+  onFinishEdit(values) {
     var self = this;
-     axios.put(process.env.API_DOMAIN+'/api/wish',{
-       id:self.state.editId,
-       title:values.title,
-       description:values.description,
-       link:values.link,
-       disabled:values.disabled,
-       price:values.price
-     },this.headers)
-     .then(function (response) {
+    axios.put(process.env.API_DOMAIN + '/api/wish', {
+      id: self.state.editId,
+      title: values.title,
+      description: values.description,
+      link: values.link,
+      disabled: values.disabled,
+      price: values.price
+    }, this.headers)
+      .then(() => {
         self.loadWish();
         self.closeEdit();
-     })
-     .catch(function (error) {
-
-                console.log(error);
-     })
-     .then(function () {
-     });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
-  editForm(){
+  editForm() {
 
-    const layout = {
-    labelCol: {
-    span: 8,
-    },
-    wrapperCol: {
-    span: 16,
-    },
-    };
-    const tailLayout = {
-      wrapperCol: {
-        offset: 8,
-        span: 16,
-      },
-    };
-var form = null;
-if(this.state.editRecord != null){
+    var form = null;
+    if (this.state.editRecord !== null) {
 
-    form =  (<div className="my-container">
-      <Form
-            name="normal_login"
-            className="login-form"
-            onFinish={this.onFinishEdit}
+      form = (<div className="my-container">
+        <Form
+          name="normal_login"
+          className="login-form"
+          onFinish={this.onFinishEdit}
+        >
+          <Form.Item
+            initialValue={this.state.editRecord.title}
+            name="title"
+            rules={[{ required: true, message: 'Please input the title!' }]}
           >
-            <Form.Item
-              initialValue={this.state.editRecord.title}
-              name="title"
-              rules={[{ required: true, message: 'Please input the title!' }]}
-            >
-              <Input  placeholder="Title" />
-            </Form.Item>
-            <Form.Item
-              name="description"
-              initialValue={this.state.editRecord.description}
-            >
-              <Input.TextArea placeholder="Description" />
-            </Form.Item>
-            <Form.Item
-              name="price"
-              initialValue={this.state.editRecord.price}
-            >
-              <InputNumber step="0.01" placeholder="Price" />
-            </Form.Item>
-            <Form.Item
-              name="link"
-              initialValue={this.state.editRecord.link}
-            >
-              <Input placeholder="Link" />
-            </Form.Item>
-            <Form.Item
-              name="disabled"
-              label="Disabled"
-            >
-              <Switch defaultChecked={this.state.editRecord.disabled}  />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" className="login-form-button">
-                Save wish
-              </Button>
-            </Form.Item>
-          </Form>
-    </div>);
-}
-return form;
+            <Input placeholder="Title" />
+          </Form.Item>
+          <Form.Item
+            name="description"
+            initialValue={this.state.editRecord.description}
+          >
+            <Input.TextArea placeholder="Description" />
+          </Form.Item>
+          <Form.Item
+            name="price"
+            initialValue={this.state.editRecord.price}
+          >
+            <InputNumber step="0.01" placeholder="Price" />
+          </Form.Item>
+          <Form.Item
+            name="link"
+            initialValue={this.state.editRecord.link}
+          >
+            <Input placeholder="Link" />
+          </Form.Item>
+          <Form.Item
+            name="disabled"
+            label="Disabled"
+          >
+            <Switch defaultChecked={this.state.editRecord.disabled} />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="login-form-button">
+              Save wish
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>);
+    }
+    return form;
   }
 
   render() {
@@ -377,10 +334,9 @@ return form;
       {this.modalAdd()}
       {this.modalEdit()}
       {this.modalDelete()}
-       <Button onClick={this.add} type="primary">Add wish</Button>
-     <Table columns={this.columns} dataSource={this.state.data} />
-    </div>
-    ;
+      <Button onClick={this.add} type="primary">Add wish</Button>
+      <Table columns={this.columns} dataSource={this.state.data} />
+    </div>;
   }
 }
 

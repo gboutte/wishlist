@@ -1,8 +1,8 @@
 import React from 'react';
-import Wishlist  from '../../Components/Wishlist';
-import Installation  from '../Installation';
-import Loader  from '../Loader';
-import axios from 'axios'
+import Wishlist from '../../Components/Wishlist';
+import Installation from '../Installation';
+import Loader from '../Loader';
+import axios from 'axios';
 
 
 class Front extends React.Component {
@@ -10,48 +10,48 @@ class Front extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          installed:false,
-          loading:true
-        };
+      installed: false,
+      loading: true
+    };
 
   }
 
 
   componentDidMount() {
     var self = this;
-       axios.get(process.env.API_DOMAIN+'/api/public/wish')
-       .then(function (response) {
-         // handle success
-         self.setState({
-           data:response.data.data,
-           installed:true
-         })
+    axios.get(process.env.API_DOMAIN + '/api/public/wish')
+      .then((response) => {
+        // handle success
+        self.setState({
+          data: response.data.data,
+          installed: true
+        });
 
-       })
-       .catch(function (error) {
-        if(error.response.data.errors.includes('NEED_INSTALL')){
-            self.setState({installed:false});
+      })
+      .catch((error) => {
+        if (error.response.data.errors.includes('NEED_INSTALL')) {
+          self.setState({ installed: false });
         }
-       })
-       .then(function () {
-         self.setState({loading:false});
-       });
+      })
+      .then(() => {
+        self.setState({ loading: false });
+      });
 
   }
   render() {
     var page;
-    if(this.state.loading){
-      page = <Loader/>;
-    }else if(this.state.installed == false){
-      page = <Installation/>;
-    }else{
-      page = <Wishlist/>;
+    if (this.state.loading) {
+      page = <Loader />;
+    } else if (this.state.installed === false) {
+      page = <Installation />;
+    } else {
+      page = <Wishlist />;
     }
-    var style={
-      height:"100%"
-    }
+    var style = {
+      height: '100%'
+    };
     return <div style={style}>
-          {page}
+      {page}
     </div>;
   }
 }
