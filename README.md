@@ -1,6 +1,5 @@
 # Wishlist
-![Lint ci](https://github.com/gboutte/wishlist/actions/workflows/lint.yaml/badge.svg) 
-![Test ci](https://github.com/gboutte/wishlist/actions/workflows/test.yaml/badge.svg)
+![Lint ci](https://github.com/gboutte/wishlist/actions/workflows/lint.yaml/badge.svg) ![Test ci](https://github.com/gboutte/wishlist/actions/workflows/test.yaml/badge.svg)
 
 ## Installation pour le développement
 Installer les dépendances
