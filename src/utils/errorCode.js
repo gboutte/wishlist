@@ -1,17 +1,31 @@
 
 class ErrorCode {
-    static userPasswordLength = {
-        error: "ERROR_USER_PASSWORD_LENGTH"
-    };
-    static userBadCreditentials = {
-        error: "ERROR_USER_CREDENTIAL_INCORRECT"
-    };
-    static userPasswordNumber = {
-        error: "ERROR_USER_PASSWORD_NUMBER"
-    };
-    static userUsername = {
-        error: "ERROR_USER_USERNAME"
-    };
+  static get(name) {
+    let error;
+    switch (name) {
+      case 'userPasswordLength':
+        error = {
+          error: 'ERROR_USER_PASSWORD_LENGTH'
+        };
+        break;
+      case 'userBadCredentials':
+        error = {
+          error: 'ERROR_USER_CREDENTIAL_INCORRECT'
+        };
+        break;
+      case 'userPasswordNumber':
+        error = {
+          error: 'ERROR_USER_PASSWORD_NUMBER'
+        };
+        break;
+      case 'userUsername':
+        error = {
+          error: 'ERROR_USER_USERNAME'
+        };
+        break;
+    }
+    return error;
+  }
 }
 
 module.exports = ErrorCode;

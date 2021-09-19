@@ -10,16 +10,16 @@ router.post('/login', validate(
     password: {
       in: ['body'],
       isLength: {
-        errorMessage: ErrorCode.userPasswordLength,
+        errorMessage: ErrorCode.get('userPasswordLength'),
         options: { min: 8 }
       },
       matches: {
-        errorMessage: ErrorCode.userPasswordNumber,
+        errorMessage: ErrorCode.get('userPasswordNumber'),
         options: [/[0-9]/, 'g']
       }
     },
     username: {
-      errorMessage: ErrorCode.userUsername,
+      errorMessage: ErrorCode.get('userUsername'),
       in: ['body'],
       isLength: {
         options: { min: 4 }

@@ -29,12 +29,12 @@ async function login(req, res) {
     let user = users[0];
     const validPassword = await bcrypt.compare(req.body.password, user.password);
 
-    if (!validPassword) { return Response.badRequest(res, ErrorCode.userBadCreditentials); }
+    if (!validPassword) { return Response.badRequest(res, ErrorCode.get('userBadCreditentials')); }
 
     Response.success(res, { token: Authenticator.getToken(user) });
 
   } else {
-    Response.badRequest(res, [ErrorCode.userBadCreditentials]);
+    Response.badRequest(res, [ErrorCode.get('userBadCreditentials')]);
   }
 
 
