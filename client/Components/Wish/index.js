@@ -42,7 +42,7 @@ class Wish extends React.Component {
   }
   getLink() {
     if (this.state.link) {
-      return <a target='_blank' href={this.state.link} rel="noreferrer"><img src={gift} />Acheter et offrir à Rudy</a>;
+      return <a target='_blank' href={this.state.link} rel="noreferrer" className="wishLink"><img src={gift} />Acheter et offrir à Rudy</a>;
     } else {
       return null;
     }
