@@ -3,7 +3,7 @@ on:
   push:
 
 jobs:
-  Lint:
+  Test:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,6 +13,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Write docker.env
+        run: 
+          touch .env.docker &&
+          echo "DB_USER=user" > .env.docker &&
+          echo "DB_PASSWORD=password" > .env.docker &&
+          echo "DB_DATABASE=wishlist" > .env.docker &&
+          echo "API_DOMAIN=http://localhost:8005" > .env.docker &&
+          echo "TOKEN_SECRET=secret" > .env.docker
 
       - name: Cache node modules
         id: cache-nodemodules
