@@ -9,6 +9,8 @@ async function create(req, res) {
     description: req.body.description,
     price: req.body.price,
     disabled: req.body.disabled,
+    order: req.body.order,
+    picture: req.body.picture
   }).then((wish) => {
     Response.successData(res, wish);
   }).catch((error) => {
@@ -37,6 +39,8 @@ async function update(req, res) {
     description: req.body.description,
     price: req.body.price,
     disabled: req.body.disabled,
+    order: req.body.order,
+    picture: req.body.picture
   }, {
     where: {
       id: req.body.id

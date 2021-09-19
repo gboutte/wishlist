@@ -13,16 +13,24 @@ class Wish extends React.Component {
       description: props.description,
       price: props.price,
       link: props.link,
+      picture: props.picture,
+      order: props.order,
       img: null
     };
   }
   componentDidMount() {
     var self = this;
-    WishService.getImage(self.state.id).then((img) => {
+    if(this.state.picture !== ''){
       self.setState({
-        img: img
+        img: this.state.picture
       });
-    });
+    }else{
+      WishService.getImage(self.state.id).then((img) => {
+        self.setState({
+          img: img
+        });
+      });
+    }
 
   }
   getPrice() {
@@ -57,7 +65,7 @@ class Wish extends React.Component {
         <div style={stylePicture} className="picture">
         </div>
         <div className="content">
-          <h2>{this.state.title}</h2>
+          <h3>{this.state.title}</h3>
           <p>{this.state.description}</p>
           {price}
           {link}

@@ -234,6 +234,19 @@ class AdminList extends React.Component {
         >
           <Input placeholder="Link" />
         </Form.Item>
+
+        <Form.Item
+          name="picture"
+        >
+          <Input placeholder="Picture" />
+        </Form.Item>
+
+        <Form.Item
+          name="order"
+          initialValue="1"
+        >
+          <InputNumber step="1" placeholder="Order" />
+        </Form.Item>
         <Form.Item
           name="disabled"
           label="Disabled"
@@ -296,6 +309,20 @@ class AdminList extends React.Component {
             initialValue={this.state.editRecord.link}
           >
             <Input placeholder="Link" />
+          </Form.Item>
+
+          <Form.Item
+            name="picture"
+            initialValue={this.state.editRecord.picture}
+          >
+            <Input placeholder="Picture" />
+          </Form.Item>
+
+          <Form.Item
+            name="order"
+            initialValue={this.state.editRecord.order}
+          >
+            <InputNumber step="1" placeholder="Order" />
           </Form.Item>
           <Form.Item
             name="disabled"

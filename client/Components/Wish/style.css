@@ -7,12 +7,19 @@
 }
 .wishContainer{
   padding: 8px 0;
-  width: 700px;
-  margin-left: auto;
-  margin-right: auto;
   transition: all 0.2s ease-out;
 }
-.wish h2{
+.gutter-wish {
+  padding: 8px;
+}
+.wishesContainer{
+  width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+}
+.wish h3{
   margin:0;
   padding: 0;
 }
@@ -59,7 +66,7 @@ box-shadow: 0px 7px 10px 0px rgba(0,0,0,0.75);
 
 @media screen and (max-width: 1000px) {
 
-  .wishContainer{
+  .wishesContainer{
     width: 95%;
   }
 }

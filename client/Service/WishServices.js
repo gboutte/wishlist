@@ -22,18 +22,18 @@ export default class WishService {
   }
   static getAll(admin) {
     let url = process.env.API_DOMAIN;
-    if(admin){
+    if (admin) {
       url += '/api/wish';
-    }else{
+    } else {
       url += '/api/public/wish';
     }
     const request = axios.get(url);
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
       request.then((response) => {
         let allData = response.data.data;
         resolve(allData);
 
-      }).catch((error)=>{
+      }).catch((error) => {
         reject(error);
       });
     });
@@ -57,7 +57,9 @@ export default class WishService {
       description: values.description,
       link: values.link,
       disabled: values.disabled,
-      price: values.price
+      price: values.price,
+      order: values.order,
+      picture: values.picture
     });
 
     return new Promise((resolve, reject) => {
@@ -88,7 +90,9 @@ export default class WishService {
       description: values.description,
       link: values.link,
       disabled: values.disabled,
-      price: values.price
+      price: values.price,
+      order: values.order,
+      picture: values.picture
     });
 
     return new Promise((resolve, reject) => {

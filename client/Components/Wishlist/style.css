@@ -1,0 +1,11 @@
+h2 {
+    font-size: 25px !important;
+    color: white !important;
+    text-align: center !important;
+    text-decoration: underline;
+}
+
+p{
+    text-align: center;
+    color: white;
+}

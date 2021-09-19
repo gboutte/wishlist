@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     link: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.FLOAT,
-    disabled: DataTypes.BOOLEAN
+    disabled: DataTypes.BOOLEAN,
+    order: DataTypes.INTEGER,
+    picture: DataTypes.STRING
   }, {});
   Wish.associate = function (models) {
     Wish.hasMany(models.Picture);

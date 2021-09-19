@@ -9,6 +9,7 @@ h1{
   color:white !important;
   text-align: center !important;
   font-weight: 900 !important;
+  margin-bottom: 0 !important;
 }
 html,body{
   background: rgb(57,57,57) !important;
