@@ -20,7 +20,7 @@ class Wish extends React.Component {
   }
   componentDidMount() {
     var self = this;
-    if(this.state.picture !== ''){
+    if(this.state.picture !== '' && this.state.picture !== null){
       self.setState({
         img: this.state.picture
       });
