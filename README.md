@@ -1,5 +1,8 @@
 # Wishlist
-![Lint ci](https://github.com/gboutte/wishlist/actions/workflows/lint.yaml/badge.svg) ![Test ci](https://github.com/gboutte/wishlist/actions/workflows/test.yaml/badge.svg)
+![Lint ci](https://github.com/gboutte/wishlist/actions/workflows/lint.yaml/badge.svg) 
+![Test ci](https://github.com/gboutte/wishlist/actions/workflows/test.yaml/badge.svg)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/gboutte/wishlist.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gboutte/wishlist/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gboutte/wishlist.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gboutte/wishlist/context:javascript)
 
 ## Installation pour le développement
 Installer les dépendances
