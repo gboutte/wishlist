@@ -30,6 +30,7 @@ jobs:
       - name: Install Dependencies
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: |
+          npm i -g npm@latest &&
           npm install
       - name: Lint
         run: |
