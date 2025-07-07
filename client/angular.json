@@ -64,12 +64,15 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "client:build:production"
             },
             "development": {
-              "buildTarget": "client:build:development"
+              "buildTarget": "client:build:development",
             }
           },
           "defaultConfiguration": "development"
