@@ -28,10 +28,13 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Wishlist')
+    .setDescription('')
     .setVersion('1.0')
-    .addTag('cats')
+    .addBearerAuth({
+      type: 'http',
+      description: 'You can get the token on the /auth/login endpoint',
+    })
     .build();
   const document = SwaggerModule.createDocument(app, config);
 
@@ -46,9 +49,15 @@ async function bootstrap() {
         theme: 'tomorrow-night',
       },
       tryItOutEnabled: true,
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
     },
   });
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+bootstrap().catch((err) => {
+  console.error('NestJS application failed to start', err);
+  process.exit(1);
+});

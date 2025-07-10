@@ -15,6 +15,8 @@ DATABASE_PASSWORD=pass123
 DATABASE_NAME=postgres
 DATABASE_PORT=5432
 DATABASE_HOST=localhost
+APP_SECRET=secret
+ACCESS_TOKEN_EXPIRATION=1h
 ```
 
 ## Compile and run the project

@@ -5,6 +5,10 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { InstallModule } from './install/install.module';
+import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { InstalledJwtGuard } from './global/guards/installed-jwt.guard';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -18,6 +22,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         DATABASE_PASSWORD: Joi.required(),
         DATABASE_NAME: Joi.required(),
         DATABASE_PORT: Joi.number().default(5432),
+        APP_SECRET: Joi.required(),
+        ACCESS_TOKEN_EXPIRATION: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRootAsync({
@@ -34,8 +40,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       }),
       inject: [ConfigService],
     }),
+    UsersModule,
+    InstallModule,
+    AuthModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: InstalledJwtGuard,
+    },
+  ],
 })
 export class AppModule {}
