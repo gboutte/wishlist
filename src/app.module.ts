@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { InstalledJwtGuard } from './global/guards/installed-jwt.guard';
 import { WishesModule } from './wishes/wishes.module';
+import { StatusModule } from './status/status.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -45,6 +46,7 @@ import { WishesModule } from './wishes/wishes.module';
     InstallModule,
     AuthModule,
     WishesModule,
+    StatusModule,
   ],
   controllers: [],
   providers: [
