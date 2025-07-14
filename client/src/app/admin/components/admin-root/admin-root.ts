@@ -1,11 +1,17 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ConfigStore } from '../../../config/config.store';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { TuiAppearance } from '@taiga-ui/core';
+import { TuiCardMedium } from '@taiga-ui/layout';
 
 @Component({
   selector: 'app-admin-root',
-  imports: [],
+  imports: [
+    RouterOutlet,
+    TuiAppearance,
+    TuiCardMedium,
+  ],
   templateUrl: './admin-root.html',
   styleUrl: './admin-root.scss',
 })

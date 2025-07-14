@@ -1,1 +1,70 @@
-<p>admin-homepage works!</p>
+@if(wishList === undefined){
+  <tui-loader />
+}@else{
+  <h1>Admin</h1>
+  <div class="actions">
+    <button
+      tuiButton
+      appearance="primary"
+      size="s"
+      [routerLink]="['/admin/wish/add']"
+      >Add a wish</button>
+    <button
+      tuiButton
+      appearance="primary"
+      size="s"
+      [routerLink]="['/admin/config']"
+      >Configuration</button>
+
+  </div>
+<table
+  tuiTable
+  [size]="size"
+  [style.width.rem]="58"
+>
+  <thead>
+  <tr>
+    <th tuiTh>Title</th>
+    <th tuiTh>Link</th>
+    <th tuiTh>Description</th>
+    <th tuiTh>Order</th>
+    <th tuiTh>Disabled</th>
+    <th tuiTh>Created at</th>
+    <th tuiTh></th>
+  </tr>
+  </thead>
+  <tbody tuiTbody>
+    @for (wish of wishList; track wish.id) {
+      <tr>
+        <td tuiTd>
+            {{wish.title}}
+        </td>
+        <td tuiTd>
+          {{wish.link}}
+        </td>
+        <td tuiTd>
+          {{wish.description}}
+        </td>
+        <td tuiTd>
+          {{wish.order}}
+        </td>
+        <td tuiTd>
+          {{wish.disabled}}
+        </td>
+        <td tuiTd>
+          {{wish.created_at | date:'dd/MM/yyyy HH:mm'}}
+        </td>
+        <td tuiTd>
+          <a routerLink="/admin/wish/edit/{{wish.id}}">
+          <tui-icon
+            icon="pencil"
+            class="text"
+          />
+          </a>
+        </td>
+
+      </tr>
+    }
+  </tbody>
+</table>
+}

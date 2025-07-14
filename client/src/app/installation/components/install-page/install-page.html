@@ -1,1 +1,77 @@
-<p>install-page works!</p>
+<div
+  tuiAppearance="neutral"
+  tuiCardMedium
+  class="form"
+>
+  <h1>Install</h1>
+  <form [formGroup]="installLogin" (submit)="install()">
+
+    <div>
+
+      <tui-textfield
+        iconStart="@tui.mail"
+      >
+        <label tuiLabel>Email</label>
+        <input
+          placeholder="Email"
+          tuiTextfield
+          formControlName="username"
+        />
+      </tui-textfield>
+    </div>
+    <div>
+      <tui-textfield
+        iconStart="@tui.key">
+
+        <label tuiLabel>Password</label>
+        <input
+          placeholder="Password"
+          tuiTextfield
+          type="password"
+          formControlName="password"
+        />
+        <tui-icon tuiPassword />
+      </tui-textfield>
+    </div>
+    <div>
+
+      <tui-textfield
+        iconStart="@tui.user"
+      >
+        <label tuiLabel>Name</label>
+        <input
+          placeholder="Name"
+          tuiTextfield
+          formControlName="name"
+        />
+      </tui-textfield>
+    </div>
+    <div>
+      <tui-textfield
+        ngSkipHydration
+        iconStart="@tui.text"
+      >
+        <label tuiLabel>Description</label>
+        <textarea
+          placeholder="Description"
+          tuiTextarea
+          formControlName="description"
+
+          [limit]="100"
+          [max]="6"
+          [min]="3"
+        ></textarea>
+      </tui-textfield>
+    </div>
+    <div>
+      <button
+        size="l"
+        tuiButton
+        type="submit"
+      >
+        Install
+      </button>
+    </div>
+
+  </form>
+</div>

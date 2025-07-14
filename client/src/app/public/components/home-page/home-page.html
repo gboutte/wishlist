@@ -1,1 +1,21 @@
-<p>home-page works!</p>
+<div class="home">
+
+<div class="container">
+  @if (wishes === undefined || name === undefined ||description === undefined) {
+    <tui-loader />
+  } @else {
+
+    <div class="header">
+      <h1>{{name}}'s Wishlist</h1>
+      @if(description !== '') {
+        <p class="description">{{description}}</p>
+      }
+    </div>
+
+    <app-wishlist [wishes]="wishes"/>
+  }
+
+
+</div>
+
+</div>

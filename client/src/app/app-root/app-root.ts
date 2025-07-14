@@ -1,3 +1,4 @@
+import { TuiRoot } from "@taiga-ui/core";
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ConfigService } from '../config/config.service';
@@ -6,7 +7,8 @@ import { ConfigService } from '../config/config.service';
   selector: 'app-root',
   imports: [
     RouterOutlet,
-  ],
+      TuiRoot
+],
   templateUrl: './app-root.html',
   styleUrl: './app-root.scss'
 })

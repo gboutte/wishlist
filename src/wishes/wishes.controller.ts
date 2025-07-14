@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { WishesService } from './wishes.service';
 import { Wish } from './entities/wish.entity';
@@ -15,6 +23,25 @@ export class WishesController {
   @Public()
   getAll(): Promise<Wish[]> {
     return this.wishesService.findAll();
+  }
+
+  @Get('archive')
+  @ApiBearerAuth()
+  getArchive(): Promise<Wish[]> {
+    return this.wishesService.findAll();
+  }
+
+  @Get(':id')
+  @ApiBearerAuth()
+  async getOne(
+    @Param('id')
+    id: string,
+  ): Promise<Wish> {
+    const wish = await this.wishesService.findOne(id);
+    if (!wish) {
+      throw new NotFoundException(`Wish with id ${id} not found`);
+    }
+    return wish;
   }
 
   @Patch(':id')

@@ -21,8 +21,8 @@ export class Wish {
   @Column()
   description: string;
 
-  @Column({ type: 'float' })
-  price: number;
+  @Column({ type: 'float', nullable: true })
+  price: number | null;
 
   @Column({ type: 'int' })
   order: number;

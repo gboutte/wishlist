@@ -12,8 +12,16 @@ export class WishesService {
     private wishRepository: Repository<Wish>,
   ) {}
 
-  findAll(): Promise<Wish[]> {
-    return this.wishRepository.find();
+  findAll(archive: boolean = false): Promise<Wish[]> {
+    return this.wishRepository.find({
+      where: {
+        disabled: archive,
+      },
+      order: {
+        order: 'DESC',
+        created_at: 'DESC',
+      },
+    });
   }
 
   findOne(id: string): Promise<Wish | null> {

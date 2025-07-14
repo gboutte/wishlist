@@ -1,13 +1,47 @@
-<tui-textfield
-  iconEnd="@tui.settings"
-  iconStart="@tui.search"
+<div
+  tuiAppearance="neutral"
+  tuiCardMedium
+  class="form"
 >
-  <label tuiLabel>I am a label</label>
-  <input
-    placeholder="I am placeholder"
-    tuiTextfield
-    [(ngModel)]="value"
-  />
-  <tui-icon icon="@tui.bell" />
-  <tui-icon tuiTooltip="I am a hint" />
-</tui-textfield>
+  <h1>Login</h1>
+<form [formGroup]="loginForm" (submit)="login()">
+
+  <div>
+
+  <tui-textfield
+    iconStart="@tui.mail"
+  >
+    <label tuiLabel>Email</label>
+    <input
+      placeholder="Email"
+      tuiTextfield
+      formControlName="username"
+    />
+  </tui-textfield>
+  </div>
+  <div>
+  <tui-textfield
+    iconStart="@tui.key">
+
+    <label tuiLabel>Password</label>
+    <input
+      placeholder="Password"
+      tuiTextfield
+      type="password"
+      formControlName="password"
+    />
+    <tui-icon tuiPassword />
+  </tui-textfield>
+  </div>
+  <div>
+  <button
+    size="l"
+    tuiButton
+    type="submit"
+  >
+    Login
+  </button>
+  </div>
+
+</form>
+</div>

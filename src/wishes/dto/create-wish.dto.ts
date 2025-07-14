@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString, ValidateIf } from 'class-validator';
 
 export class CreateWishDto {
   @ApiProperty({
@@ -28,7 +28,8 @@ export class CreateWishDto {
     example: 35000,
   })
   @IsNumber()
-  readonly price: number;
+  @ValidateIf((object, value) => value !== null)
+  readonly price: number | null;
 
   @ApiProperty({
     description: 'The order of the wish',

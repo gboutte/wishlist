@@ -1,0 +1,41 @@
+:host{
+  width: 100%;
+  display: block;
+  container-type: inline-size;
+  container-name: admin-wish-form;
+}
+.actions{
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+}
+.form{
+  width: 100%;
+  form{
+    width: 100%;
+    gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    >div{
+      width: 100%;
+    }
+  }
+
+  .field-switch{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  //margin-inline: auto;
+
+}
+@container admin-wish-form (width < 700px) {
+  :host{
+    .form{
+      form{
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

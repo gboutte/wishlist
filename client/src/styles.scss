@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+
+  color: rgba(0, 0, 0, 0.85);
+  box-sizing: border-box;
+  transition: all 0.2s ease-out;
+}
+body,html{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}

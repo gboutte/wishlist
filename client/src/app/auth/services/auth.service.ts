@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { deserialize } from 'serializr';
@@ -27,12 +26,19 @@ export class AuthService extends AbstractService {
       this.httpOptions,
     );
   }
-  install(username: string, password: string): Observable<any> {
+  install(
+    username: string,
+    password: string,
+    name: string,
+    description: string,
+  ): Observable<any> {
     return this.httpClient.post<any>(
       this.getUrl() + '/install/register',
       {
         username: username,
         password: password,
+        name: name,
+        description: description,
       },
       this.httpOptions,
     );
