@@ -21,6 +21,9 @@ export class Wish {
   @Column()
   description: string;
 
+  @Column({ default: '' })
+  picture: string;
+
   @Column({ type: 'float', nullable: true })
   price: number | null;
 

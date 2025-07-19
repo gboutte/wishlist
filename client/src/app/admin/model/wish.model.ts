@@ -14,6 +14,8 @@ export class Wish {
 
   @serializable
   description!: string;
+  @serializable
+  picture!: string;
 
   @serializable
   price!: number;

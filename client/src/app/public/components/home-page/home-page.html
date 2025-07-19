@@ -1,18 +1,22 @@
 <div class="home">
 
 <div class="container">
-  @if (wishes === undefined || name === undefined ||description === undefined) {
+  @if ((wishes === undefined || name === undefined ||description === undefined ) && !projectNotInstalled) {
     <tui-loader />
   } @else {
 
     <div class="header">
+      @if(name){
       <h1>{{name}}'s Wishlist</h1>
-      @if(description !== '') {
+      }
+      @if(description !== '' && description !== undefined){
         <p class="description">{{description}}</p>
       }
     </div>
 
-    <app-wishlist [wishes]="wishes"/>
+    @if(wishes){
+      <app-wishlist [wishes]="wishes"/>
+    }
   }
 
 

@@ -24,10 +24,17 @@ export class HomePage implements OnInit ,OnDestroy{
 
   name!:string;
   description!:string;
+  projectNotInstalled = false;
 
   private $destroy = new Subject<void>();
 
   ngOnInit() {
+
+    this.loadWishes();
+    this.subscribeConfigProject();
+  }
+
+  loadWishes(){
     this.wishesService.getAll().subscribe({
       next: (wishes) => {
         this.wishes = wishes;
@@ -36,16 +43,20 @@ export class HomePage implements OnInit ,OnDestroy{
         console.error('Error fetching wishes:', error);
       }
     });
-
-
+  }
+  subscribeConfigProject(){
     this.configStore.name$.pipe(takeUntil(this.$destroy)).subscribe(name => {
       if(name) {
         this.name = name;
+      }else{
+        this.projectNotInstalled = true;
       }
     });
     this.configStore.description$.pipe(takeUntil(this.$destroy)).subscribe(description => {
       if(description) {
         this.description = description;
+      }else{
+        this.projectNotInstalled = true;
       }
     });
 

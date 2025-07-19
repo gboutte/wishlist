@@ -47,4 +47,12 @@ export class WishesService extends AbstractService {
       .get<Wish>(this.getUrl() + '/wishes/' + id, this.httpOptions)
       .pipe(map((response: any) => deserialize(Wish, response)));
   }
+
+  getSuggestion(url: string): Observable<Wish> {
+    return this.httpClient
+      .post<Wish>(this.getUrl() + '/wishes/suggestion',{
+        link: url
+      }, this.httpOptions)
+      .pipe(map((response: any) => deserialize(Wish, response)));
+  }
 }

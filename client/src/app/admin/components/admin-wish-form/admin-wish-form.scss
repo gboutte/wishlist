@@ -30,8 +30,17 @@
   //margin-inline: auto;
 
 }
+.wishes{
+  margin-top:50px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 @container admin-wish-form (width < 700px) {
   :host{
+    .wishes{
+      grid-template-columns: 1fr;
+    }
     .form{
       form{
         grid-template-columns: 1fr;

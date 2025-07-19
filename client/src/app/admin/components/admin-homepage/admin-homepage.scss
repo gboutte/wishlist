@@ -6,6 +6,18 @@
 
 table{
   width: 100% !important;
+
+  overflow: auto;
+  thead,tbody{
+    width: 100% !important;
+  }
+  .link{
+
+    text-overflow: ellipsis;
+    max-width: 200px;
+    text-wrap-mode: nowrap;
+    overflow: hidden;
+  }
 }
 .actions{
   margin: 20px 0;

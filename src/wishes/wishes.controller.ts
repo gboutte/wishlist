@@ -13,6 +13,7 @@ import { Wish } from './entities/wish.entity';
 import { UpdateWishDto } from './dto/update-wish.dto';
 import { CreateWishDto } from './dto/create-wish.dto';
 import { Public } from '../global/decorators/public.decorator';
+import { SuggestionWishDto } from './dto/suggestion-wish.dto';
 
 @Controller('wishes')
 @ApiTags('wishes')
@@ -42,6 +43,16 @@ export class WishesController {
       throw new NotFoundException(`Wish with id ${id} not found`);
     }
     return wish;
+  }
+  @Post('suggestion')
+  @ApiBearerAuth()
+  async getsuggestion(
+    @Body()
+    suggestionWish: SuggestionWishDto,
+  ): Promise<any> {
+    const data = await this.wishesService.findMetaFromURl(suggestionWish.link);
+
+    return data;
   }
 
   @Patch(':id')

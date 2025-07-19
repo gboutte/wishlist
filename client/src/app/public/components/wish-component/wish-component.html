@@ -2,6 +2,9 @@
 
 <div class="wish">
   <div  class="picture">
+    @if(wish().picture && wish().picture !== undefined){
+    <img [src]="wish().picture" alt="{{wish().title}}" />
+    }
   </div>
   <div class="content">
     <h3>
@@ -13,7 +16,7 @@
       {{wish().price | currency:'EUR' :'symbol' : '1.2-2': 'fr' }}
     </div>
     @if(wish().link){
-    <a target='_blank' [href]="wish().link" rel="noreferrer" class="wishLink"><img src="" />Acheter et offrir à Rudy</a>
+    <a target='_blank' [href]="wish().link" rel="noreferrer" class="wishLink"><img src="sdfsdfs" />Acheter et offrir à {{configStore.name}}</a>
     }
   </div>
 </div>
