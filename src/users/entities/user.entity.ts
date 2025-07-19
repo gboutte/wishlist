@@ -13,6 +13,6 @@ export class User {
   @Exclude()
   password: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
   date_created: Date;
 }
