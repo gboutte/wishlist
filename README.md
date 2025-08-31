@@ -45,7 +45,7 @@ npm run start:prod
 ## Build docker
 
 ```bash
-docker build -t wishlist .
+docker build -t gboutte/wishlist .
 
-docker run -p 3000:3000 -e DATABASE_HOST=myhost.db.com -e DATABASE_PORT=5432 -e DATABASE_USER=myuser -e DATABASE_PASSWORD=supersecret -e DATABASE_NAME=mydb wishlist
+docker run -p 3000:3000 -e DATABASE_HOST=myhost.db.com -e DATABASE_PORT=5432 -e DATABASE_USER=myuser -e DATABASE_PASSWORD=supersecret -e DATABASE_NAME=mydb gboutte/wishlist
 ```
