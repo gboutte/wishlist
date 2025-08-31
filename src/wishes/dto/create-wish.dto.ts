@@ -17,6 +17,13 @@ export class CreateWishDto {
   readonly link: string;
 
   @ApiProperty({
+    description: 'The link to the image',
+    example: '',
+  })
+  @IsString()
+  readonly picture: string;
+
+  @ApiProperty({
     description: 'The description of the wish',
     example: 'I would like to have a Tesla Model 3',
   })

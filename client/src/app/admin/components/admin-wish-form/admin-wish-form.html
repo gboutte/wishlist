@@ -32,6 +32,10 @@
             formControlName="title"
           />
         </tui-textfield>
+        <tui-error
+          [error]="['required'] | tuiFieldError | async"
+          [formControl]="title"
+        />
       </div>
       <div class="field">
         <tui-textfield
@@ -54,6 +58,18 @@
             placeholder="Link"
             tuiTextfield
             formControlName="link"
+          />
+        </tui-textfield>
+      </div>
+      <div class="field">
+        <tui-textfield
+          iconStart="@tui.link"
+        >
+          <label tuiLabel>Picture</label>
+          <input
+            placeholder="Picture"
+            tuiTextfield
+            formControlName="picture"
           />
         </tui-textfield>
       </div>
@@ -82,6 +98,10 @@
             formControlName="order"
           />
         </tui-textfield>
+        <tui-error
+          [error]="['required'] | tuiFieldError | async"
+          [formControl]="order"
+        />
       </div>
 
       <div class="field">
@@ -118,7 +138,7 @@
     }
     @if(suggestedWish !== undefined){
     <div>
-      Suggested:
+      Suggested : <button tuiButton appearance="outline" size="s" (click)="apply(suggestedWish)">Apply suggestion</button>
       <app-wish [wish]="suggestedWish" />
     </div>
     }

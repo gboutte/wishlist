@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  Get,
+  Get, Logger,
   NotFoundException,
   Param,
   Patch,
@@ -50,6 +50,7 @@ export class WishesController {
     @Body()
     suggestionWish: SuggestionWishDto,
   ): Promise<any> {
+    Logger.log('ici');
     const data = await this.wishesService.findMetaFromURl(suggestionWish.link);
 
     return data;

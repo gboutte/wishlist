@@ -3,11 +3,12 @@ import { Wish } from '../../model/wish.model';
 import { WishesService } from '../../services/wishes.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { TuiButton, TuiLabel, TuiLoader, TuiTextfieldComponent, TuiTextfieldDirective } from '@taiga-ui/core';
-import { TuiInputNumberDirective, TuiSwitch } from '@taiga-ui/kit';
+import { TuiButton, TuiError, TuiLabel, TuiLoader, TuiTextfieldComponent, TuiTextfieldDirective } from '@taiga-ui/core';
+import { TuiFieldErrorPipe, TuiInputNumberDirective, TuiSwitch } from '@taiga-ui/kit';
 import { TuiCurrencyPipe } from '@taiga-ui/addon-commerce';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { WishComponent } from '../../../public/components/wish-component/wish-component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-admin-wish-form',
@@ -23,6 +24,9 @@ import { WishComponent } from '../../../public/components/wish-component/wish-co
     TuiLoader,
     RouterLink,
     WishComponent,
+    TuiError,
+    TuiFieldErrorPipe,
+    AsyncPipe,
   ],
   templateUrl: './admin-wish-form.html',
   styleUrl: './admin-wish-form.scss',
@@ -42,6 +46,7 @@ export class AdminWishForm implements OnInit, OnDestroy {
     title: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string>(''),
     link: new FormControl<string>(''),
+    picture: new FormControl<string>(''),
     disabled: new FormControl<boolean>(false),
     price: new FormControl<number | null>(null),
     order: new FormControl<number>(1, [Validators.required]),
@@ -65,6 +70,15 @@ export class AdminWishForm implements OnInit, OnDestroy {
     }
 
     this.subscribeToFormChanges();
+  }
+
+  protected apply(wish: Wish) {
+    this.wishForm.patchValue({
+      title:wish.title,
+      description:wish.description,
+      link:wish.link,
+      picture:wish.picture,
+    });
   }
 
   ngOnDestroy() {
@@ -105,6 +119,7 @@ export class AdminWishForm implements OnInit, OnDestroy {
     wish.disabled = this.disabled.value;
     wish.price = this.price.value;
     wish.order = this.order.value;
+    wish.picture = this.picture.value;
     return wish;
   }
 
@@ -126,6 +141,9 @@ export class AdminWishForm implements OnInit, OnDestroy {
   get order(): FormControl {
     return this.wishForm.get('order') as FormControl;
   }
+  get picture(): FormControl {
+    return this.wishForm.get('picture') as FormControl;
+  }
 
   getWishObj() {
     const wish: Wish = new Wish();
@@ -135,6 +153,8 @@ export class AdminWishForm implements OnInit, OnDestroy {
     wish.disabled = this.disabled.value;
     wish.price = this.price.value;
     wish.order = this.order.value;
+    wish.picture = this.picture.value;
+    console.log(wish)
     return wish;
   }
 

@@ -45,13 +45,7 @@ npm run start:prod
 ## Build docker
 
 ```bash
-docker build -t combined-app .
+docker build -t wishlist .
 
-docker run -p 3000:3000 \
-  -e PGHOST=myhost.db.com \
-  -e PGPORT=5432 \
-  -e PGUSER=myuser \
-  -e PGPASSWORD=supersecret \
-  -e PGDATABASE=mydb \
-  combined-app
+docker run -p 3000:3000 -e DATABASE_HOST=myhost.db.com -e DATABASE_PORT=5432 -e DATABASE_USER=myuser -e DATABASE_PASSWORD=supersecret -e DATABASE_NAME=mydb wishlist
 ```

@@ -34,7 +34,8 @@ export class WishesService extends AbstractService {
       link: wish.link,
       disabled: wish.disabled,
       price: wish.price,
-      order: wish.order
+      order: wish.order,
+      picture: wish.picture,
     }
 
     return this.httpClient
