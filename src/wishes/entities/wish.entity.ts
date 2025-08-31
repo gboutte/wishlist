@@ -34,15 +34,15 @@ export class Wish {
   disabled: boolean;
 
   @CreateDateColumn({
-    type: 'datetime',
-    default: () => 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
   })
   public created_at: Date;
 
   @UpdateDateColumn({
-    type: 'datetime',
-    default: () => 'CURRENT_TIMESTAMP',
-    onUpdate: 'CURRENT_TIMESTAMP',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   public updated_at: Date;
 }
