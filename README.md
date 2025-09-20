@@ -48,4 +48,6 @@ npm run start:prod
 docker build -t gboutte/wishlist .
 
 docker run -p 3000:3000 -e DATABASE_HOST=myhost.db.com -e DATABASE_PORT=5432 -e DATABASE_USER=myuser -e DATABASE_PASSWORD=supersecret -e DATABASE_NAME=mydb gboutte/wishlist
+
+docker push gboutte/wishlist
 ```
