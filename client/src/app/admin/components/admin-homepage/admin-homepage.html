@@ -15,7 +15,15 @@
       size="s"
       [routerLink]="['/admin/config']"
       >Configuration</button>
-
+    <label>
+      <input
+        size="s"
+        tuiCheckbox
+        type="checkbox"
+        [formControl]="showDisabledControl"
+      />
+      Show disabled
+    </label>
   </div>
 <table
   tuiTable
@@ -56,13 +64,18 @@
         <td tuiTd>
           {{wish.created_at | date:'dd/MM/yyyy HH:mm'}}
         </td>
-        <td tuiTd>
+        <td tuiTd class="wish-actions">
           <a routerLink="/admin/wish/edit/{{wish.id}}">
           <tui-icon
             icon="pencil"
             class="text"
           />
           </a>
+
+          <tui-icon (click)="confirmDelete(wish)"
+            icon="trash"
+            class="text"
+          />
         </td>
 
       </tr>

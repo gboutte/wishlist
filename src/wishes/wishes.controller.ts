@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get, Logger,
-  NotFoundException,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { WishesService } from './wishes.service';
 import { Wish } from './entities/wish.entity';
@@ -29,7 +21,7 @@ export class WishesController {
   @Get('archive')
   @ApiBearerAuth()
   getArchive(): Promise<Wish[]> {
-    return this.wishesService.findAll();
+    return this.wishesService.findAll(true);
   }
 
   @Get(':id')
@@ -50,10 +42,7 @@ export class WishesController {
     @Body()
     suggestionWish: SuggestionWishDto,
   ): Promise<any> {
-    Logger.log('ici');
-    const data = await this.wishesService.findMetaFromURl(suggestionWish.link);
-
-    return data;
+    return await this.wishesService.findMetaFromURl(suggestionWish.link);
   }
 
   @Patch(':id')
@@ -79,5 +68,19 @@ export class WishesController {
     createWishDto: CreateWishDto,
   ) {
     return this.wishesService.create(createWishDto);
+  }
+
+  @Delete(':id')
+  @ApiBearerAuth()
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'The uuid of the user',
+  })
+  async remove(
+    @Param('id')
+    id: string,
+  ) {
+    return this.wishesService.remove(id);
   }
 }

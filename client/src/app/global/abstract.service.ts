@@ -9,6 +9,12 @@ export abstract class AbstractService {
       'Access-Control-Allow-Origin': '*',
     }),
   };
+
+  protected readonly deleteHttpOptions = {
+    headers: new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+    }),
+  }
   private api = '/api';
 
 

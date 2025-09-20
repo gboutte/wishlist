@@ -16,7 +16,7 @@ export class WishesService extends AbstractService {
   }
   getAllArchive(): Observable<Wish[]> {
     return this.httpClient
-      .get(this.getUrl() + '/wishes', this.httpOptions)
+      .get(this.getUrl() + '/wishes/archive', this.httpOptions)
       .pipe(map((response: any) => response.map((wish: any) => deserialize(Wish, wish))));
   }
 
@@ -47,6 +47,12 @@ export class WishesService extends AbstractService {
     return this.httpClient
       .get<Wish>(this.getUrl() + '/wishes/' + id, this.httpOptions)
       .pipe(map((response: any) => deserialize(Wish, response)));
+  }
+
+  delete(id: string): Observable<void> {
+    return this.httpClient
+      .delete<void>(this.getUrl() + '/wishes/' + id, this.deleteHttpOptions)
+      .pipe(map((response: any) => response));
   }
 
   getSuggestion(url: string): Observable<Wish> {
