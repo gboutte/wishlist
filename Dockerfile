@@ -10,6 +10,13 @@ RUN npm install -g pm2
 # Copy both apps into container
 COPY . /app
 
+RUN rm -f /app/.env
+RUN rm -rf /app/dist
+RUN rm -rf /app/node_modules
+RUN rm -rf /app/client/dist
+RUN rm -rf /app/client/node_modules
+
+
 # Install dependencies for API
 WORKDIR /app
 RUN npm run install:all
