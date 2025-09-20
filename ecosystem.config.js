@@ -9,7 +9,7 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 4001,
         APP_MODE: 'prod',
-        ACCESS_TOKEN_EXPIRATION: '1h',
+        ACCESS_TOKEN_EXPIRATION: '48h',
         APP_SECRET: makeid(10)
       }
     },

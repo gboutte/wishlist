@@ -1,12 +1,35 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TuiTableDirective, TuiTableTbody, TuiTableTd, TuiTableTh } from '@taiga-ui/addon-table';
+import {
+  TuiComparator, TuiSortChange,
+  TuiSortDirection, TuiTable,
+  TuiTableDirective, TuiTableHead, TuiTableSortable, TuiTableSortBy, TuiTableSortPipe,
+  TuiTableTbody,
+  TuiTableTd,
+  TuiTableTh, TuiTableThGroup,
+} from '@taiga-ui/addon-table';
 import { WishesService } from '../../services/wishes.service';
 import { Wish } from '../../model/wish.model';
 import { TuiAlertService, TuiButton, TuiDialogService, TuiIcon, TuiLoader } from '@taiga-ui/core';
-import { DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TUI_CONFIRM, TuiCheckbox } from '@taiga-ui/kit';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  TUI_DEFAULT_MATCHER,
+  tuiControlValue,
+  TuiDay,
+  tuiDefaultSort,
+  tuiIsFalsy,
+  tuiIsPresent,
+  TuiLet,
+  tuiToInt,
+} from '@taiga-ui/cdk';
+import { BehaviorSubject, combineLatest, debounceTime, Observable, of, share, startWith, switchMap } from 'rxjs';
+
+function sortBy(key: keyof Wish, direction: TuiSortDirection): TuiComparator<Wish> {
+  return (a, b) => direction * tuiDefaultSort(a[key], b[key]);
+}
+
 
 @Component({
   selector: 'app-admin-homepage',
@@ -22,6 +45,14 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     TuiIcon,
     TuiCheckbox,
     ReactiveFormsModule,
+    TuiLet,
+    TuiTableSortPipe,
+    TuiTableHead,
+    TuiTableSortable,
+    TuiTableThGroup,
+    AsyncPipe,
+    TuiTableSortBy,
+    TuiTable,
   ],
   templateUrl: './admin-homepage.html',
   styleUrl: './admin-homepage.scss',
@@ -34,9 +65,22 @@ export class AdminHomepage implements OnInit{
   private wishService: WishesService = inject(WishesService);
   private readonly dialogs = inject(TuiDialogService);
 
-
+  protected readonly columns = [
+    'title',
+    'link',
+    'description',
+    'disabled',
+    'created_at',
+    'order',
+    'actions'
+  ] as const;
   wishList!: Wish[];
   protected showDisabledControl = new FormControl<boolean>(false);
+  protected readonly direction$ = new BehaviorSubject<TuiSortDirection>(
+    TuiSortDirection.Asc,
+  );
+  protected readonly sortKey$ = new BehaviorSubject<keyof Wish>('order');
+
 
 
   ngOnInit() {
@@ -101,4 +145,5 @@ export class AdminHomepage implements OnInit{
         }
       });
   }
+
 }

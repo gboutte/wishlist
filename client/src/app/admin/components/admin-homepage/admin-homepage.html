@@ -29,42 +29,70 @@
   tuiTable
   [size]="size"
   [style.width.rem]="58"
+
+  [columns]="columns"
+  [direction]="(direction$ | async) ?? 1"
+  [tuiSortBy]="sortKey$ | async"
 >
   <thead>
-  <tr>
-    <th tuiTh>Title</th>
-    <th tuiTh>Link</th>
-    <th tuiTh>Description</th>
-    <th tuiTh>Order</th>
-    <th tuiTh>Disabled</th>
-    <th tuiTh>Created at</th>
-    <th tuiTh></th>
+  <tr tuiThGroup>
+    <th tuiTh
+        *tuiHead="'title'"
+    >Title</th>
+    <th tuiTh
+        *tuiHead="'link'">Link</th>
+    <th tuiTh
+        *tuiHead="'description'">Description</th>
+    <th tuiTh
+
+        *tuiHead="'order'"
+    >Order</th>
+    <th tuiTh
+        *tuiHead="'disabled'">Disabled</th>
+    <th tuiTh
+        *tuiHead="'created_at'">Created at</th>
+    <th tuiTh
+        [tuiSortable]="false"
+        *tuiHead="'actions'"></th>
   </tr>
   </thead>
-  <tbody tuiTbody>
-    @for (wish of wishList; track wish.id) {
-      <tr>
-        <td tuiTd>
+  <tbody
+    *tuiLet="wishList | tuiTableSort as sortedData"
+    tuiTbody
+    [data]="sortedData"
+  >
+    @for (wish of sortedData; track wish.id) {
+      <tr tuiTr>
+        <td tuiTd
+            *tuiCell="'title'">
             {{wish.title}}
         </td>
-        <td tuiTd class="link">
+        <td tuiTd class="link"
+            *tuiCell="'link'">
           <a [href]="wish.link" target="_blank">
           {{wish.link}}
           </a>
         </td>
-        <td tuiTd>
+        <td
+          *tuiCell="'description'"
+          tuiTd>
           {{wish.description}}
         </td>
-        <td tuiTd>
+        <td tuiTd    *tuiCell="'order'">
           {{wish.order}}
         </td>
-        <td tuiTd>
+        <td tuiTd
+            *tuiCell="'disabled'">
           {{wish.disabled}}
         </td>
-        <td tuiTd>
+        <td tuiTd
+            *tuiCell="'created_at'"
+        >
           {{wish.created_at | date:'dd/MM/yyyy HH:mm'}}
         </td>
-        <td tuiTd class="wish-actions">
+        <td
+          *tuiCell="'actions'"
+          tuiTd class="wish-actions">
           <a routerLink="/admin/wish/edit/{{wish.id}}">
           <tui-icon
             icon="pencil"
