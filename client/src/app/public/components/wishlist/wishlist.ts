@@ -30,7 +30,7 @@ export class Wishlist {
     / if there is a gap we move the wishes to the previous number
      */
 
-    let previousKey = -1;
+    let previousKey = 0;
     orderedMap.forEach((wishes, key) => {
       if (previousKey !== -1 && key > previousKey + 1) {
         // move wishes to previousKey + 1
@@ -41,6 +41,7 @@ export class Wishlist {
         const existingWishes = orderedMap.get(newKey) || [];
         orderedMap.set(newKey, existingWishes.concat(wishes));
         orderedMap.delete(key);
+        previousKey = newKey;
       } else {
         previousKey = key;
       }
