@@ -42,7 +42,8 @@ export class AuthInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler,
   ) {
-    if (error.status === 401 && !this.sessionService.isLoggedIn()) {
+    if (error.status === 401 ) {
+      this.sessionService.logout();
       this.router.navigate(['/login']);
     }
 
