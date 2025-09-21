@@ -11,11 +11,8 @@ import { Router, RouterLink } from '@angular/router';
   imports: [
     ReactiveFormsModule,
     TuiButton,
-    TuiCurrencyPipe,
-    TuiInputNumberDirective,
     TuiLabel,
     TuiLoader,
-    TuiSwitch,
     TuiTextfieldComponent,
     TuiTextfieldDirective,
     TuiTextarea,
