@@ -2,6 +2,11 @@ import { Component, computed, input, Signal } from '@angular/core';
 import { Wish } from '../../../admin/model/wish.model';
 import { WishComponent } from '../wish-component/wish-component';
 
+interface WishGroup {
+  order: number;
+  wishes: Wish[];
+}
+
 @Component({
   selector: 'app-wishlist',
   imports: [
@@ -13,7 +18,8 @@ import { WishComponent } from '../wish-component/wish-component';
 export class Wishlist {
   wishes = input.required<Wish[]>();
 
-  orderedWishes :Signal<Map<number,Wish[]>> = computed(() => {
+  orderedWishes :Signal<WishGroup[]> = computed(() => {
+    const wishGroups: WishGroup[] = [];
 
     let orderedMap = new Map<number, Wish[]>();
     this.wishes().forEach((wish) => {
@@ -22,7 +28,8 @@ export class Wishlist {
       }
       orderedMap.get(wish.order)?.push(wish);
     });
-    orderedMap = new Map([...orderedMap.entries()].sort());
+
+    const orderedKeys = Array.from(orderedMap.keys()).sort((a, b) => a - b);
 
     /*
     / For each key we make sure that the previous number exists
@@ -30,23 +37,14 @@ export class Wishlist {
     / if there is a gap we move the wishes to the previous number
      */
 
+
     let previousKey = 0;
-    orderedMap.forEach((wishes, key) => {
-      if (previousKey !== -1 && key > previousKey + 1) {
-        // move wishes to previousKey + 1
+    orderedKeys.forEach((wishKey) => {
         const newKey = previousKey + 1;
-        if (!orderedMap.has(newKey)) {
-          orderedMap.set(newKey, []);
-        }
-        const existingWishes = orderedMap.get(newKey) || [];
-        orderedMap.set(newKey, existingWishes.concat(wishes));
-        orderedMap.delete(key);
+        wishGroups.push({ order: newKey, wishes: orderedMap.get(wishKey) || [] });
         previousKey = newKey;
-      } else {
-        previousKey = key;
-      }
     });
 
-    return orderedMap;
+    return wishGroups;
   });
 }
