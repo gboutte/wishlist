@@ -1,0 +1,13 @@
+
+@for (group of orderedWishes(); track group.order) {
+  <h2>
+    Ordre de préférence {{ group.order}}
+  </h2>
+
+  <div class="wishgroup">
+
+  @for (wish of group.wishes; track wish.id) {
+    <app-wish [wish]="wish"></app-wish>
+  }
+  </div>
+}

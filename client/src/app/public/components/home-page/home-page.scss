@@ -1,0 +1,26 @@
+.home{
+
+  background: #151719 !important;
+  display: block;
+  min-height: 100vh;
+  .container{
+    padding: 20px 0;
+    width: 98%;
+    max-width: 1200px;
+    margin-inline: auto;
+    h1{
+      font-size: 60px !important;
+      line-height: 60px !important;
+      color: white !important;
+      text-align: center !important;
+      font-weight: 900 !important;
+      margin-bottom: 40px;
+    }
+    .description{
+      text-align: center;
+      color: white;
+      margin-bottom: 50px !important;
+      white-space: pre-line
+    }
+  }
+}

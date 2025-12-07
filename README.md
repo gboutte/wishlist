@@ -1,75 +1,53 @@
-# Wishlist
-![Lint ci](https://github.com/gboutte/wishlist/actions/workflows/lint.yaml/badge.svg) 
-![Test ci](https://github.com/gboutte/wishlist/actions/workflows/test.yaml/badge.svg)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/gboutte/wishlist.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gboutte/wishlist/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/gboutte/wishlist.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/gboutte/wishlist/context:javascript)
 
-## Installation pour le développement
-Installer les dépendances
-```sh
-npm install
+## Description
+
+## Project setup
+
+```bash
+npm run install:all
 ```
 
-Definir les variables d'environnement dans .env
+in `.env` file
 
-| Nom          |                  Description                  |
-|--------------|:---------------------------------------------:|
-| DATABASE_URL |    L'url de connexion a la base de données    |
-| TOKEN_SECRET | La clé utilisé pour la création des token JWT |
-
-Dans front/.env
-
-| Nom          |                  Description                  |
-|--------------|:---------------------------------------------:|
-| API_DOMAIN | L'url a utiliser pour les appels api (ex: http://localhost:3000) |
-| TITLE_NAME | Le titre |
-
-
-Lancer les migrations et le 1er build
-
-```sh
-npm run deploy
+```
+APP_MODE=prod
+DATABASE_USER=postgres
+DATABASE_PASSWORD=pass123
+DATABASE_NAME=postgres
+DATABASE_PORT=5432
+DATABASE_HOST=localhost
+APP_SECRET=secret
+ACCESS_TOKEN_EXPIRATION=1h
+```
+```
+APP_MODE=dev
+APP_SECRET=secret
+ACCESS_TOKEN_EXPIRATION=1h
 ```
 
-Lancement des serveurs de développement
-```sh
+## Compile and run the project
+
+```bash
+# development
 npm run start:dev
-```
-
-## Commandes npm
-
-| Commande          |                  Description                  |
-|--------------|:---------------------------------------------:|
-| npm run start:dev |   Lance l'api et le client en mode developpemnt   |
-| npm run start:nodemon |   Lance l'api en mode developpemnt   |
-| npm run start:client |   Lance le client en mode developpemnt   |
-| npm run start |   Lance l'api et le client en mode production. Il faut que le build soit lancer avant.  |
-| npm run test |   Lance les tests |
-| npm run coverage:html |   Lance les tests et créer un rapport de code coverage au format html |
-| npm run coverage |   Lance les tests et créer un rapport de code coverage au format texte |
-| npm run deploy |   Exécute les actions nécessaires  avant lancer l'application (migrations + build). |
-| npm run migrations |   Exécute les migrations. |
-| npm run build |   Compile le client react. |
-
-## Docker
-Pour lancer le docker il faut créer un fichier .env.docker avec les variables suivante:
-```
-DB_USER=user
-DB_PASSWORD=password
-DB_DATABASE=wishlist
-API_DOMAIN=http://localhost:3000
-TOKEN_SECRET=secret
-TITLE_NAME=rudy
-```
-Puis executer la commande suivante
-```sh
-docker-compose --env-file .env.docker up --build -d
-```
-```sh
-docker-compose --env-file .env.docker up --build --no-deps --force-recreate -d
 
 ```
 
-```sh
-docker-compose --env-file .env.docker build --no-cache
+## Deployment
+
+```bash
+npm run build
+npm run start:prod
+```
+
+
+
+## Build docker
+
+```bash
+docker build -t gboutte/wishlist .
+
+docker run -p 3000:3000 -e DATABASE_HOST=myhost.db.com -e DATABASE_PORT=5432 -e DATABASE_USER=myuser -e DATABASE_PASSWORD=supersecret -e DATABASE_NAME=mydb gboutte/wishlist
+
+docker push gboutte/wishlist
 ```

@@ -1,0 +1,147 @@
+@if (wish === undefined) {
+  <tui-loader></tui-loader>
+} @else {
+
+  <h1>Admin - @if (wish !== null) {
+    Edit Wish {{ wish.title }}
+  } @else {
+    Add Wish
+  }</h1>
+  <div class="actions">
+    <button
+      tuiButton
+      appearance="primary"
+      size="s"
+      [routerLink]="['/admin']"
+    >Back
+    </button>
+
+  </div>
+  <div class="form">
+
+    <form [formGroup]="wishForm" (submit)="onSubmit()">
+
+      <div class="field">
+        <tui-textfield
+          iconStart="@tui.mail"
+        >
+          <label tuiLabel>Title</label>
+          <input
+            placeholder="Title"
+            tuiTextfield
+            formControlName="title"
+          />
+        </tui-textfield>
+        <tui-error
+          [error]="['required'] | tuiFieldError | async"
+          [formControl]="title"
+        />
+      </div>
+      <div class="field">
+        <tui-textfield
+          iconStart="@tui.text"
+        >
+          <label tuiLabel>Description</label>
+          <input
+            placeholder="Description"
+            tuiTextfield
+            formControlName="description"
+          />
+        </tui-textfield>
+      </div>
+      <div class="field">
+        <tui-textfield
+          iconStart="@tui.link"
+        >
+          <label tuiLabel>Link</label>
+          <input
+            placeholder="Link"
+            tuiTextfield
+            formControlName="link"
+          />
+        </tui-textfield>
+      </div>
+      <div class="field">
+        <tui-textfield
+          iconStart="@tui.link"
+        >
+          <label tuiLabel>Picture</label>
+          <input
+            placeholder="Picture"
+            tuiTextfield
+            formControlName="picture"
+          />
+        </tui-textfield>
+      </div>
+      <div class="field">
+        <tui-textfield
+          iconStart="@tui.euro"
+        >
+          <label tuiLabel>Price</label>
+          <input
+            placeholder="Price"
+
+            tuiInputNumber
+            [postfix]="' ' + ('EUR' | tuiCurrency)"
+            formControlName="price"
+          />
+        </tui-textfield>
+      </div>
+      <div class="field">
+        <tui-textfield
+          iconStart="@tui.list-ordered"
+        >
+          <label tuiLabel>Order</label>
+          <input
+            placeholder="Order"
+            tuiInputNumber
+            formControlName="order"
+          />
+        </tui-textfield>
+        <tui-error
+          [error]="['required'] | tuiFieldError | async"
+          [formControl]="order"
+        />
+      </div>
+
+      <div class="field">
+        <div class="field-switch">
+          <label for="disabled">Disabled</label>
+          <input
+            tuiSwitch
+            id="disabled"
+            type="checkbox"
+            formControlName="disabled"
+          />
+        </div>
+      </div>
+      <div class="field">
+        <button
+          size="l"
+          tuiButton
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="wishes">
+
+    @if(formWish !== undefined){
+    <div>
+      Preview:
+      <app-wish [wish]="formWish" />
+    </div>
+    }
+    @if(suggestedWish !== undefined){
+    <div>
+      Suggested : <button tuiButton appearance="outline" size="s" (click)="apply(suggestedWish)">Apply suggestion</button>
+      <app-wish [wish]="suggestedWish" />
+    </div>
+    }
+  </div>
+
+}

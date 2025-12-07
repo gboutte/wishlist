@@ -1,0 +1,113 @@
+@if(wishList === undefined){
+  <tui-loader />
+}@else{
+  <h1>Admin</h1>
+  <div class="actions">
+    <button
+      tuiButton
+      appearance="primary"
+      size="s"
+      [routerLink]="['/admin/wish/add']"
+      >Add a wish</button>
+    <button
+      tuiButton
+      appearance="primary"
+      size="s"
+      [routerLink]="['/admin/config']"
+      >Configuration</button>
+    <label>
+      <input
+        size="s"
+        tuiCheckbox
+        type="checkbox"
+        [formControl]="showDisabledControl"
+      />
+      Show disabled
+    </label>
+  </div>
+<table
+  tuiTable
+  [size]="size"
+  [style.width.rem]="58"
+
+  [columns]="columns"
+  [direction]="(direction$ | async) ?? 1"
+  [tuiSortBy]="sortKey$ | async"
+>
+  <thead>
+  <tr tuiThGroup>
+    <th tuiTh
+        *tuiHead="'title'"
+    >Title</th>
+    <th tuiTh
+        *tuiHead="'link'">Link</th>
+    <th tuiTh
+        *tuiHead="'description'">Description</th>
+    <th tuiTh
+
+        *tuiHead="'order'"
+    >Order</th>
+    <th tuiTh
+        *tuiHead="'disabled'">Disabled</th>
+    <th tuiTh
+        *tuiHead="'created_at'">Created at</th>
+    <th tuiTh
+        [tuiSortable]="false"
+        *tuiHead="'actions'"></th>
+  </tr>
+  </thead>
+  <tbody
+    *tuiLet="wishList | tuiTableSort as sortedData"
+    tuiTbody
+    [data]="sortedData"
+  >
+    @for (wish of sortedData; track wish.id) {
+      <tr tuiTr>
+        <td tuiTd
+            *tuiCell="'title'">
+            {{wish.title}}
+        </td>
+        <td tuiTd class="link"
+            *tuiCell="'link'">
+          <a [href]="wish.link" target="_blank">
+          {{wish.link}}
+          </a>
+        </td>
+        <td
+          *tuiCell="'description'"
+          tuiTd>
+          {{wish.description}}
+        </td>
+        <td tuiTd    *tuiCell="'order'">
+          {{wish.order}}
+        </td>
+        <td tuiTd
+            *tuiCell="'disabled'">
+          {{wish.disabled}}
+        </td>
+        <td tuiTd
+            *tuiCell="'created_at'"
+        >
+          {{wish.created_at | date:'dd/MM/yyyy HH:mm'}}
+        </td>
+        <td
+          *tuiCell="'actions'"
+          tuiTd class="wish-actions">
+          <a routerLink="/admin/wish/edit/{{wish.id}}">
+          <tui-icon
+            icon="pencil"
+            class="text"
+          />
+          </a>
+
+          <tui-icon (click)="confirmDelete(wish)"
+            icon="trash"
+            class="text"
+          />
+        </td>
+
+      </tr>
+    }
+  </tbody>
+</table>
+}
